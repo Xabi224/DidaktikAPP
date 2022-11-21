@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">DidaktikAPP</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="tema_oscuro">temaOscuro</string>
+    <string name="tema_defecto">temaPorDefecto</string>
+
 </resources>
