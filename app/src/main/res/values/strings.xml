@@ -5,5 +5,6 @@
     <!-- Preference Titles -->
     <string name="tema_oscuro">temaOscuro</string>
     <string name="tema_defecto">temaPorDefecto</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

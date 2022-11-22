@@ -8,11 +8,42 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="460dp"
+        android:layout_height="750dp"
         android:background="#000000"
-       />
-    <!-- app:srcCompat="@drawable/logonima" -->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="177dp"
+        android:layout_height="105dp"
+        android:background="#000000"
+        app:srcCompat="@drawable/upvehu"
+        tools:layout_editor_absoluteX="201dp"
+        tools:layout_editor_absoluteY="520dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="198dp"
+        android:layout_height="233dp"
+        android:background="#000000"
+        app:srcCompat="@drawable/elorritalogo"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="459dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="166dp"
+        android:layout_height="199dp"
+        android:layout_marginTop="88dp"
+        android:background="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/escudogerni"
+        tools:layout_editor_absoluteX="104dp"
+        tools:ignore="MissingConstraints" />
     <!-- android:contentDescription="@string/splashscreen_con_logo_nima" /> -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

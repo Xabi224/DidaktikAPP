@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ImageView;
 
+import com.elorrieta.didaktikapp.map.MapsActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
         @Override
@@ -27,15 +29,9 @@ public class SplashScreen extends AppCompatActivity {
 
             ImageView imagen = findViewById(R.id.imageView);
             imagen.setOnClickListener(view -> {
-               // boolean inicioAutomatico = opciones.getBoolean(getString(R.string.auto_login), false);
                 Intent intent;
-               // if (inicioAutomatico) {
-                 //   intent = new Intent(SplashScreen.this, MainActivity.class);
-               // } //else {
-                 //   intent = new Intent(SplashScreen.this, LoginActivity.class);
-             // }
-
-              //  startActivity(intent);
+                intent = new Intent(SplashScreen.this, MapsActivity.class);
+                startActivity(intent);
                 finish();
             });
         }
