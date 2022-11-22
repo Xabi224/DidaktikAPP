@@ -19,9 +19,13 @@
         android:layout_width="177dp"
         android:layout_height="105dp"
         android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.812"
         app:srcCompat="@drawable/upvehu"
-        tools:layout_editor_absoluteX="201dp"
-        tools:layout_editor_absoluteY="520dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -29,20 +33,27 @@
         android:layout_width="198dp"
         android:layout_height="233dp"
         android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.887"
         app:srcCompat="@drawable/elorritalogo"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="459dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="166dp"
         android:layout_height="199dp"
-        android:layout_marginTop="88dp"
         android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.079"
         app:srcCompat="@drawable/escudogerni"
-        tools:layout_editor_absoluteX="104dp"
         tools:ignore="MissingConstraints" />
     <!-- android:contentDescription="@string/splashscreen_con_logo_nima" /> -->
 
