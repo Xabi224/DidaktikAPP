@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -25,12 +24,14 @@
         <activity
             android:name=".map.MapsActivity"
             android:exported="false"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".SplashScreen"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.DidaktikAPP"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
 
             <intent-filter>

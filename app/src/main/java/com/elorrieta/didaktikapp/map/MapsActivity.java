@@ -1,18 +1,27 @@
 package com.elorrieta.didaktikapp.map;
 
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
 import com.elorrieta.didaktikapp.R;
 import com.elorrieta.didaktikapp.databinding.ActivityMapsBinding;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -21,39 +30,44 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private LocationManager locationManager;
+    private FusedLocationProviderClient fusedLocationClient;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
     private LatLng currentLocation;
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        com.elorrieta.didaktikapp.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
+
+        // funcion de callback que se ejecuta cuando la localizacion cambia
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                Location lastLocation = locationResult.getLastLocation();
+                assert lastLocation != null;
+                currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLng(currentLocation));
+            }
+        };
+
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
+        // Añadimos los marcadores
         LatLng murala = new LatLng(43.315504984331355, -2.6800469989231344);
         LatLng bunker = new LatLng(43.313752475470565, -2.6790814036719923);
         LatLng zuhaitza = new LatLng(43.313350799395316, -2.6800029250450503);
@@ -70,43 +84,75 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(zubia).title("Urdaibaiko Biosfera Erreserba (Errenteriako zubia)"));
         mMap.addMarker(new MarkerOptions().position(auditorio).title("Gatibu eta Ken Zazpi (Auditorio Seber Altube)"));
 
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
-            }
+        // hacemos zoom
+        mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.zoomTo(18));
 
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-        // move camera using gps
-        currentLocation = getCurrentLocation();
-        mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
+        // configuramos la localizacion
+        createLocationRequest();
     }
 
-    private LatLng getCurrentLocation() {
-        Location location = null;
-        try {
-            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        } catch (Exception e) {
-            e.printStackTrace();
+    protected void createLocationRequest() {
+        // inicializamosmos la peticion de localizacion
+        locationRequest = new LocationRequest.Builder(5000)
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                .build();
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        // Recogemos la configuracion del usuario y la comparamos con la peticion de localizacion
+        SettingsClient client = LocationServices.getSettingsClient(this);
+        client.checkLocationSettings(builder.build()).addOnSuccessListener(e -> {
+            // si la configuracion es correcta, empezamos a pedir la localizacion
+            startLocationUpdates();
+        }).addOnFailureListener(this, e -> {
+            // Alguna condicion de localizacion no esta cumplida
+            if (e instanceof ResolvableApiException) {
+                try {
+                    // Mostramos un dialogo para cambiar la configuracion y comprobamos la respuesta en onActivityResult().
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(this, 1);
+                } catch (IntentSender.SendIntentException sendEx) {
+                    // Ignoramos el error.
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // El usuario ha aceptado la configuracion de localizacion
+                createLocationRequest();
+            } else {
+                // El usuario ha rechazado la configuracion de localizacion
+                Toast.makeText(this, "Es necesario aceptar la configuracion", Toast.LENGTH_SHORT).show();
+                createLocationRequest();
+            }
         }
-        assert location != null;
-        return new LatLng(location.getLatitude(), location.getLongitude());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startLocationUpdates();
+    }
+
+    private void startLocationUpdates() {
+        fusedLocationClient.requestLocationUpdates(locationRequest,
+                locationCallback,
+                Looper.getMainLooper());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopLocationUpdates();
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallback);
+    }
+
 }
