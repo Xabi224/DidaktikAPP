@@ -28,7 +28,9 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 @SuppressLint("MissingPermission")
@@ -40,6 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng currentLocation;
     private GoogleMap mMap;
     private boolean freeMode = false;
+    private Marker freeMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(binding.getRoot());
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        // configuramos la localizacion
+        createLocationRequest();
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -71,6 +78,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+
+        // hacemos zoom
+        mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(new LatLng(43.31543429260586, -2.6777311296364155), 16));
 
         // Activamos el marcador de posicion actual, bloqueamos el arrastrar el mapa y activamos el zoom
         mMap.setMyLocationEnabled(true);
@@ -102,11 +112,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(zubia).title("Urdaibaiko Biosfera Erreserba (Errenteriako zubia)"));
         mMap.addMarker(new MarkerOptions().position(auditorio).title("Gatibu eta Ken Zazpi (Auditorio Seber Altube)"));
 
-        // hacemos zoom
-        mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.zoomTo(18));
-
-        // configuramos la localizacion
-        createLocationRequest();
+        // Funcion para crear un marcador en el mapa si estamos en modo libre
+        mMap.setOnMapClickListener(latLng -> {
+            if (freeMode){
+                if (freeMarker != null){
+                    freeMarker.remove();
+                }
+                freeMarker = mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            }
+        });
     }
 
     protected void createLocationRequest() {
