@@ -1,14 +1,17 @@
 package com.elorrieta.didaktikapp.map;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 
 import com.elorrieta.didaktikapp.R;
@@ -28,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+@SuppressLint("MissingPermission")
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private FusedLocationProviderClient fusedLocationClient;
@@ -35,6 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationCallback locationCallback;
     private LatLng currentLocation;
     private GoogleMap mMap;
+    private boolean freeMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Location lastLocation = locationResult.getLastLocation();
                 assert lastLocation != null;
                 currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-                mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLng(currentLocation));
+                mMap.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLng(currentLocation));
             }
         };
 
@@ -66,6 +71,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+
+        // Activamos el marcador de posicion actual, bloqueamos el arrastrar el mapa y activamos el zoom
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        // Funcion al pulsar sobre la posicion actual
+        mMap.setOnMyLocationClickListener(location -> {
+            if (freeMode){
+                stopFreeMode();
+            } else {
+                promptFreeMode();
+            }
+        });
 
         // Añadimos los marcadores
         LatLng murala = new LatLng(43.315504984331355, -2.6800469989231344);
@@ -93,7 +111,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     protected void createLocationRequest() {
         // inicializamosmos la peticion de localizacion
-        locationRequest = new LocationRequest.Builder(5000)
+        locationRequest = new LocationRequest.Builder(1000)
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
                 .build();
 
@@ -153,6 +171,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallback);
+    }
+
+    private void promptFreeMode() {
+        // Abrimos un prompt para preguntar la contraseña del modo sin GPS
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Modo libre");
+        alert.setMessage("Introduce la contraseña para activar el modo libre");
+
+        // Input para la contraseña
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        // Funcion del boton OK
+        alert.setPositiveButton("Ok", (dialog, whichButton) -> {
+            String value = input.getText().toString();
+            if (value.equals("1234")) {
+                // Si la contraseña es correcta, se activa el modo libre
+                startFreeMode();
+            } else {
+                // Si la contraseña es incorrecta, se muestra un mensaje de error
+                Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Funcion del boton de cancelar
+        alert.setNegativeButton("Cancel", (dialog, whichButton) -> {
+            // No hacemos nada
+            dialog.dismiss();
+        });
+
+        alert.show();
+    }
+
+    private void startFreeMode(){
+        freeMode = true;
+        stopLocationUpdates();
+        mMap.getUiSettings().setScrollGesturesEnabled(true);
+        Toast.makeText(this, "Modo libre activado", Toast.LENGTH_SHORT).show();
+    }
+
+    private void stopFreeMode(){
+        freeMode = false;
+        startLocationUpdates();
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        Toast.makeText(this, "Modo libre desactivado", Toast.LENGTH_SHORT).show();
     }
 
 }
