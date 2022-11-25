@@ -46,7 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationCallback locationCallback;
     private LatLng currentLocation;
     private GoogleMap mMap;
-    private LinkedList<Marker> markers = new LinkedList<>();
+    final private LinkedList<Marker> markers = new LinkedList<>();
     private Marker freeMarker;
     private boolean freeMode = false;
     private Button navigateButton;
@@ -55,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.elorrieta.didaktikapp.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -69,6 +69,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
+        navigateButton = binding.navigateButton;
+
         // funcion de callback que se ejecuta cuando la localizacion cambia
         locationCallback = new LocationCallback() {
             @Override
@@ -76,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Location lastLocation = locationResult.getLastLocation();
                 assert lastLocation != null;
                 currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-                mMap.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLng(currentLocation));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation));
                 checkDistanceWithMarkers();
             }
         };
@@ -88,15 +90,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // hacemos zoom
-        mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(new LatLng(43.31543429260586, -2.6777311296364155), 16));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.31543429260586, -2.6777311296364155), 16));
 
         // Activamos el marcador de posicion actual, bloqueamos el arrastrar el mapa y activamos el zoom
         mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.getUiSettings().setScrollGesturesEnabled(false);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         // Funcion al pulsar sobre la posicion actual
         mMap.setOnMyLocationClickListener(location -> {
-            if (freeMode){
+            if (freeMode) {
                 stopFreeMode();
             } else {
                 promptFreeMode();
@@ -122,8 +126,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Funcion para crear un marcador en el mapa si estamos en modo libre
         mMap.setOnMapClickListener(latLng -> {
-            if (freeMode){
-                if (freeMarker != null){
+            if (freeMode) {
+                if (freeMarker != null) {
                     freeMarker.remove();
                 }
                 freeMarker = mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
@@ -132,11 +136,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Funcion para mostrar el boton de navegacion si estamos en modo libre
         mMap.setOnMarkerClickListener(marker -> {
-            if (freeMode){
+            if (freeMode) {
                 navigateButton.setVisibility(View.GONE);
                 showButton(marker);
+            } else {
+                marker.showInfoWindow();
             }
-            return false;
+            // Devolvemos true para que no se mueva la camara
+            return true;
         });
 
     }
@@ -236,26 +243,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         alert.show();
     }
 
-    private void startFreeMode(){
+    private void startFreeMode() {
         freeMode = true;
         stopLocationUpdates();
         mMap.getUiSettings().setScrollGesturesEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.31543429260586, -2.6777311296364155), 16));
         Toast.makeText(this, "Modo libre activado", Toast.LENGTH_SHORT).show();
     }
 
-    private void stopFreeMode(){
+    private void stopFreeMode() {
         freeMode = false;
         startLocationUpdates();
         mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
         Toast.makeText(this, "Modo libre desactivado", Toast.LENGTH_SHORT).show();
     }
 
-    private void checkDistanceWithMarkers(){
+    private void checkDistanceWithMarkers() {
         // Comprobamos si estamos cerca de algun marcador
-        for (Marker marker : markers){
+        for (Marker marker : markers) {
             float[] results = new float[1];
             Location.distanceBetween(marker.getPosition().latitude, marker.getPosition().longitude, currentLocation.latitude, currentLocation.longitude, results);
-            if (results[0] < 100){
+            if (results[0] < 20) {
                 showButton(marker);
                 return;
             }
@@ -264,7 +274,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         navigateButton.setVisibility(View.GONE);
     }
 
-    private void showButton(Marker marker){
+    private void showButton(Marker marker) {
         // Mostramos el boton y le asignamos el titulo del marcador
         navigateButton.setVisibility(View.VISIBLE);
         navigateButton.setText(marker.getTitle());
