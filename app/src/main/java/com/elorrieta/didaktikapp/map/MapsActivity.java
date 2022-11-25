@@ -6,6 +6,8 @@ import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -32,6 +35,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.LinkedList;
 
 @SuppressLint("MissingPermission")
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -41,8 +46,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationCallback locationCallback;
     private LatLng currentLocation;
     private GoogleMap mMap;
-    private boolean freeMode = false;
+    private LinkedList<Marker> markers = new LinkedList<>();
     private Marker freeMarker;
+    private boolean freeMode = false;
+    private Button navigateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 assert lastLocation != null;
                 currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 mMap.animateCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLng(currentLocation));
+                checkDistanceWithMarkers();
             }
         };
 
@@ -104,13 +112,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng zubia = new LatLng(43.31747284222259, -2.675430714429948);
         LatLng auditorio = new LatLng(43.31344383698917, -2.678843086461924);
 
-        mMap.addMarker(new MarkerOptions().position(murala).title("Gernikako bonbardaketa (Guernica murala)"));
-        mMap.addMarker(new MarkerOptions().position(bunker).title("Pasealeku Bunkerra"));
-        mMap.addMarker(new MarkerOptions().position(zuhaitza).title("Gernikako zuhaitza"));
-        mMap.addMarker(new MarkerOptions().position(frontoia).title("Jai Alai frontoia"));
-        mMap.addMarker(new MarkerOptions().position(sanJuanIbarra).title("Urriko azken astelehena (San Juan Ibarra plaza)"));
-        mMap.addMarker(new MarkerOptions().position(zubia).title("Urdaibaiko Biosfera Erreserba (Errenteriako zubia)"));
-        mMap.addMarker(new MarkerOptions().position(auditorio).title("Gatibu eta Ken Zazpi (Auditorio Seber Altube)"));
+        markers.add(mMap.addMarker(new MarkerOptions().position(murala).title("Gernikako bonbardaketa (Guernica murala)")));
+        markers.add(mMap.addMarker(new MarkerOptions().position(bunker).title("Pasealeku Bunkerra")));
+        markers.add(mMap.addMarker(new MarkerOptions().position(zuhaitza).title("Gernikako zuhaitza")));
+        markers.add(mMap.addMarker(new MarkerOptions().position(frontoia).title("Jai Alai frontoia")));
+        markers.add(mMap.addMarker(new MarkerOptions().position(sanJuanIbarra).title("Urriko azken astelehena (San Juan Ibarra plaza)")));
+        markers.add(mMap.addMarker(new MarkerOptions().position(zubia).title("Urdaibaiko Biosfera Erreserba (Errenteriako zubia)")));
+        markers.add(mMap.addMarker(new MarkerOptions().position(auditorio).title("Gatibu eta Ken Zazpi (Auditorio Seber Altube)")));
 
         // Funcion para crear un marcador en el mapa si estamos en modo libre
         mMap.setOnMapClickListener(latLng -> {
@@ -121,6 +129,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 freeMarker = mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
             }
         });
+
+        // Funcion para mostrar el boton de navegacion si estamos en modo libre
+        mMap.setOnMarkerClickListener(marker -> {
+            if (freeMode){
+                navigateButton.setVisibility(View.GONE);
+                showButton(marker);
+            }
+            return false;
+        });
+
     }
 
     protected void createLocationRequest() {
@@ -230,6 +248,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startLocationUpdates();
         mMap.getUiSettings().setScrollGesturesEnabled(false);
         Toast.makeText(this, "Modo libre desactivado", Toast.LENGTH_SHORT).show();
+    }
+
+    private void checkDistanceWithMarkers(){
+        // Comprobamos si estamos cerca de algun marcador
+        for (Marker marker : markers){
+            float[] results = new float[1];
+            Location.distanceBetween(marker.getPosition().latitude, marker.getPosition().longitude, currentLocation.latitude, currentLocation.longitude, results);
+            if (results[0] < 100){
+                showButton(marker);
+                return;
+            }
+        }
+        // Si no estamos cerca de ningun marcador, ocultamos el boton
+        navigateButton.setVisibility(View.GONE);
+    }
+
+    private void showButton(Marker marker){
+        // Mostramos el boton y le asignamos el titulo del marcador
+        navigateButton.setVisibility(View.VISIBLE);
+        navigateButton.setText(marker.getTitle());
+        navigateButton.setOnClickListener(v -> {
+            // Al pulsar el boton, se abre el marcador en el mapa
+            Toast.makeText(this, "Abriendo " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+        });
     }
 
 }
