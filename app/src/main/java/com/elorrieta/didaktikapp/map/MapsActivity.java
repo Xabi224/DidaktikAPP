@@ -15,9 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
+import androidx.room.Room;
 
 import com.elorrieta.didaktikapp.R;
 import com.elorrieta.didaktikapp.databinding.ActivityMapsBinding;
+import com.elorrieta.didaktikapp.model.database.AppDatabase;
+import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -31,12 +34,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Objects;
 
 @SuppressLint("MissingPermission")
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -46,8 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationCallback locationCallback;
     private LatLng currentLocation;
     private GoogleMap mMap;
-    final private LinkedList<Marker> markers = new LinkedList<>();
-    private Marker freeMarker;
+    private final HashMap<String, PlaceOfInterest> placesMap = new HashMap<>();
     private boolean freeMode = false;
     private Button navigateButton;
 
@@ -62,6 +63,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // configuramos la localizacion
         createLocationRequest();
+
+        // cargamos los lugares de interes en el mapa
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "didaktikapp").allowMainThreadQueries().build();
+        for (PlaceOfInterest poi : db.placeOfInterestDao().getAll()) {
+             placesMap.put(poi.name, poi);
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -108,37 +116,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         // Añadimos los marcadores
-        LatLng murala = new LatLng(43.315504984331355, -2.6800469989231344);
-        LatLng bunker = new LatLng(43.313752475470565, -2.6790814036719923);
-        LatLng zuhaitza = new LatLng(43.313350799395316, -2.6800029250450503);
-        LatLng frontoia = new LatLng(43.317368972699555, -2.678771362726186);
-        LatLng sanJuanIbarra = new LatLng(43.31717205318912, -2.6772421608758155);
-        LatLng zubia = new LatLng(43.31747284222259, -2.675430714429948);
-        LatLng auditorio = new LatLng(43.31344383698917, -2.678843086461924);
+        for (PlaceOfInterest poi : placesMap.values()) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(poi.getLatLng())
+                    .title(poi.name));
+        }
 
-        markers.add(mMap.addMarker(new MarkerOptions().position(murala).title("Gernikako bonbardaketa (Guernica murala)")));
-        markers.add(mMap.addMarker(new MarkerOptions().position(bunker).title("Pasealeku Bunkerra")));
-        markers.add(mMap.addMarker(new MarkerOptions().position(zuhaitza).title("Gernikako zuhaitza")));
-        markers.add(mMap.addMarker(new MarkerOptions().position(frontoia).title("Jai Alai frontoia")));
-        markers.add(mMap.addMarker(new MarkerOptions().position(sanJuanIbarra).title("Urriko azken astelehena (San Juan Ibarra plaza)")));
-        markers.add(mMap.addMarker(new MarkerOptions().position(zubia).title("Urdaibaiko Biosfera Erreserba (Errenteriako zubia)")));
-        markers.add(mMap.addMarker(new MarkerOptions().position(auditorio).title("Gatibu eta Ken Zazpi (Auditorio Seber Altube)")));
-
-        // Funcion para crear un marcador en el mapa si estamos en modo libre
-        mMap.setOnMapClickListener(latLng -> {
-            if (freeMode) {
-                if (freeMarker != null) {
-                    freeMarker.remove();
-                }
-                freeMarker = mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-            }
-        });
+//        LatLng murala = new LatLng(43.315504984331355, -2.6800469989231344);
+//        PlaceOfInterest poi1 = new PlaceOfInterest(1, "Gernikako bonbardaketa (Guernica murala)", murala);
+//        LatLng bunker = new LatLng(43.313752475470565, -2.6790814036719923);
+//        PlaceOfInterest poi2 = new PlaceOfInterest(2, "Pasealeku Bunkerra", bunker);
+//        LatLng zuhaitza = new LatLng(43.313350799395316, -2.6800029250450503);
+//        PlaceOfInterest poi3 = new PlaceOfInterest(3, "Gernikako zuhaitza", zuhaitza);
+//        LatLng frontoia = new LatLng(43.317368972699555, -2.678771362726186);
+//        PlaceOfInterest poi4 = new PlaceOfInterest(4, "Jai Alai frontoia", frontoia);
+//        LatLng sanJuanIbarra = new LatLng(43.31717205318912, -2.6772421608758155);
+//        PlaceOfInterest poi5 = new PlaceOfInterest(5, "Urriko azken astelehena (San Juan Ibarra plaza)", sanJuanIbarra);
+//        LatLng zubia = new LatLng(43.31747284222259, -2.675430714429948);
+//        PlaceOfInterest poi6 = new PlaceOfInterest(6, "Urdaibaiko Biosfera Erreserba (Errenteriako zubia)", zubia);
+//        LatLng auditorio = new LatLng(43.31344383698917, -2.678843086461924);
+//        PlaceOfInterest poi7 = new PlaceOfInterest(7, "Gatibu eta Ken Zazpi (Auditorio Seber Altube)", auditorio);
+//        db.placeOfInterestDao().insertAll(poi1, poi2, poi3, poi4, poi5, poi6, poi7);
 
         // Funcion para mostrar el boton de navegacion si estamos en modo libre
         mMap.setOnMarkerClickListener(marker -> {
             if (freeMode) {
                 navigateButton.setVisibility(View.GONE);
-                showButton(marker);
+                showButton(Objects.requireNonNull(placesMap.get(marker.getTitle())));
             } else {
                 marker.showInfoWindow();
             }
@@ -262,11 +266,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void checkDistanceWithMarkers() {
         // Comprobamos si estamos cerca de algun marcador
-        for (Marker marker : markers) {
+        for (PlaceOfInterest poi : placesMap.values()) {
             float[] results = new float[1];
-            Location.distanceBetween(marker.getPosition().latitude, marker.getPosition().longitude, currentLocation.latitude, currentLocation.longitude, results);
+            Location.distanceBetween(poi.latitude, poi.longitude, currentLocation.latitude, currentLocation.longitude, results);
             if (results[0] < 20) {
-                showButton(marker);
+                showButton(poi);
                 return;
             }
         }
@@ -274,13 +278,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         navigateButton.setVisibility(View.GONE);
     }
 
-    private void showButton(Marker marker) {
+    private void showButton(PlaceOfInterest poi) {
         // Mostramos el boton y le asignamos el titulo del marcador
         navigateButton.setVisibility(View.VISIBLE);
-        navigateButton.setText(marker.getTitle());
+        navigateButton.setText(poi.name);
         navigateButton.setOnClickListener(v -> {
             // Al pulsar el boton, se abre el marcador en el mapa
-            Toast.makeText(this, "Abriendo " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Abriendo " + poi.name, Toast.LENGTH_SHORT).show();
         });
     }
 
