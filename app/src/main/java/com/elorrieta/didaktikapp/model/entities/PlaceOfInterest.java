@@ -1,6 +1,7 @@
 package com.elorrieta.didaktikapp.model.entities;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -24,6 +25,7 @@ public class PlaceOfInterest {
         this.longitude = longitude;
     }
 
+    @Ignore
     public PlaceOfInterest(int id, String name, LatLng latLng) {
         this.id = id;
         this.name = name;

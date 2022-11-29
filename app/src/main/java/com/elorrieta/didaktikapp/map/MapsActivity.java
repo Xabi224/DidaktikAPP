@@ -122,22 +122,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .title(poi.name));
         }
 
-//        LatLng murala = new LatLng(43.315504984331355, -2.6800469989231344);
-//        PlaceOfInterest poi1 = new PlaceOfInterest(1, "Gernikako bonbardaketa (Guernica murala)", murala);
-//        LatLng bunker = new LatLng(43.313752475470565, -2.6790814036719923);
-//        PlaceOfInterest poi2 = new PlaceOfInterest(2, "Pasealeku Bunkerra", bunker);
-//        LatLng zuhaitza = new LatLng(43.313350799395316, -2.6800029250450503);
-//        PlaceOfInterest poi3 = new PlaceOfInterest(3, "Gernikako zuhaitza", zuhaitza);
-//        LatLng frontoia = new LatLng(43.317368972699555, -2.678771362726186);
-//        PlaceOfInterest poi4 = new PlaceOfInterest(4, "Jai Alai frontoia", frontoia);
-//        LatLng sanJuanIbarra = new LatLng(43.31717205318912, -2.6772421608758155);
-//        PlaceOfInterest poi5 = new PlaceOfInterest(5, "Urriko azken astelehena (San Juan Ibarra plaza)", sanJuanIbarra);
-//        LatLng zubia = new LatLng(43.31747284222259, -2.675430714429948);
-//        PlaceOfInterest poi6 = new PlaceOfInterest(6, "Urdaibaiko Biosfera Erreserba (Errenteriako zubia)", zubia);
-//        LatLng auditorio = new LatLng(43.31344383698917, -2.678843086461924);
-//        PlaceOfInterest poi7 = new PlaceOfInterest(7, "Gatibu eta Ken Zazpi (Auditorio Seber Altube)", auditorio);
-//        db.placeOfInterestDao().insertAll(poi1, poi2, poi3, poi4, poi5, poi6, poi7);
-
         // Funcion para mostrar el boton de navegacion si estamos en modo libre
         mMap.setOnMarkerClickListener(marker -> {
             if (freeMode) {

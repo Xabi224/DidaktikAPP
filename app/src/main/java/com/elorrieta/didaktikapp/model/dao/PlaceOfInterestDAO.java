@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 
@@ -18,9 +19,6 @@ public interface PlaceOfInterestDAO {
     @Query("SELECT * FROM PlaceOfInterest WHERE name LIKE :name")
     PlaceOfInterest findByName(String name);
 
-    @Query("UPDATE PlaceOfInterest SET name = :name, latitude = :latitude, longitude = :longitude WHERE id = :id")
-    void updateById(int id, String name, double latitude, double longitude);
-
     @Query("SELECT * FROM PlaceOfInterest")
     List<PlaceOfInterest> getAll();
 
@@ -29,6 +27,9 @@ public interface PlaceOfInterestDAO {
 
     @Insert
     void insertAll(PlaceOfInterest... placesOfInterest);
+
+    @Update
+    void update(PlaceOfInterest placeOfInterest);
 
     @Delete
     void delete(PlaceOfInterest placeOfInterest);
