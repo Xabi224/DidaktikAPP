@@ -17,6 +17,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -116,9 +117,9 @@ public class PuzzleActivity extends AppCompatActivity {
     }
 
     private ArrayList<PiezaPuzzle> splitImage() {
-        int piecesNumber = 12;
-        int rows = 4;
-        int cols = 3;
+        int piecesNumber = 4;
+        int rows = 2;
+        int cols = 2;
 
         ImageView imageView = findViewById(R.id.imageView);
         ArrayList<PiezaPuzzle> pieces = new ArrayList<>(piecesNumber);
@@ -294,6 +295,9 @@ public class PuzzleActivity extends AppCompatActivity {
 
     public void checkGameOver() {
         if (isGameOver()) {
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.kirby);
+            mediaPlayer.start();
+            Toast.makeText(this, "You win!", Toast.LENGTH_LONG).show();
             finish();
         }
     }
