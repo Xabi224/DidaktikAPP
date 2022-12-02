@@ -122,6 +122,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .title(poi.name));
         }
 
+        //Nuevo marcador para puzzle
+        //for (PlaceOfInterest puzzle : placesMap.values()) {
+          //  mMap.addMarker(new MarkerOptions()
+            //        .position(puzzle.getLatLng())
+            //        .title(puzzle.name));
+        //}
+
+
         // Funcion para mostrar el boton de navegacion si estamos en modo libre
         mMap.setOnMarkerClickListener(marker -> {
             if (freeMode) {
