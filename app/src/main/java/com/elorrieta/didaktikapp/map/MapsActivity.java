@@ -66,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // cargamos los lugares de interes en el mapa
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "didaktikapp").allowMainThreadQueries().build();
+                AppDatabase.class, "didaktikapp").fallbackToDestructiveMigration().allowMainThreadQueries().build();
         for (PlaceOfInterest poi : db.placeOfInterestDao().getAll()) {
              placesMap.put(poi.name, poi);
         }

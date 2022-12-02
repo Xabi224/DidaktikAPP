@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface GameDAO {
 
-    @Query("SELECT * FROM Game WHERE id = :id")
+    @Query("SELECT * FROM Game WHERE idGame = :id")
     Game findById(int id);
 
     @Query("SELECT * FROM Game")

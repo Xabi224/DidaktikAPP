@@ -10,7 +10,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class PlaceOfInterest {
 
     @PrimaryKey
-    public int id;
+    public int idPoI;
 
     public String name;
 
@@ -18,8 +18,8 @@ public class PlaceOfInterest {
 
     public double longitude;
 
-    public PlaceOfInterest(int id, String name, double latitude, double longitude) {
-        this.id = id;
+    public PlaceOfInterest(int idPoI, String name, double latitude, double longitude) {
+        this.idPoI = idPoI;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -27,7 +27,7 @@ public class PlaceOfInterest {
 
     @Ignore
     public PlaceOfInterest(int id, String name, LatLng latLng) {
-        this.id = id;
+        this.idPoI = id;
         this.name = name;
         this.latitude = latLng.latitude;
         this.longitude = latLng.longitude;

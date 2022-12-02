@@ -8,18 +8,21 @@ import androidx.room.PrimaryKey;
 public class Game {
 
     @PrimaryKey
-    public int id;
+    public int idGame;
 
-    public int idPlaceOfInterest;
+    public int idPoI;
 
     public String description;
 
-    public Class gameClass;
+    public byte[] audio;
 
-    public Game(int id, int idPlaceOfInterest, String description, Class gameClass) {
-        this.id = id;
-        this.idPlaceOfInterest = idPlaceOfInterest;
+    public String gameClass;
+
+    public Game(int idGame, int idPoI, String description, byte[] audio, String gameClass) {
+        this.idGame = idGame;
+        this.idPoI = idPoI;
         this.description = description;
+        this.audio = audio;
         this.gameClass = gameClass;
     }
 

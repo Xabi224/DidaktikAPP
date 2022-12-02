@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.room.Room;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,6 +19,7 @@ import com.elorrieta.didaktikapp.model.database.AppDatabase;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 import com.google.android.gms.maps.model.LatLng;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -44,9 +46,17 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         ImageView imagen = findViewById(R.id.imageView);
+        // ejemplo para cuando lo cojamos de la base de datos
         imagen.setOnClickListener(view -> {
             Intent intent;
-            intent = new Intent(SplashScreen.this, MapsActivity.class);
+            String activity = "com.elorrieta.didaktikapp.map.MapsActivity";
+            Class<?> myClass = null;
+            try {
+                myClass = Class.forName(activity);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            intent = new Intent(SplashScreen.this, myClass);
             startActivity(intent);
             finish();
         });
