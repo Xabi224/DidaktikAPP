@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.elorrieta.didaktikapp.map.MapsActivity;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
+import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -78,6 +79,8 @@ public class SplashScreen extends AppCompatActivity {
 //        PlaceOfInterest poi6 = new PlaceOfInterest(6, "Urdaibaiko Biosfera Erreserba (Errenteriako zubia)", zubia);
 //        LatLng auditorio = new LatLng(43.31344383698917, -2.678843086461924);
 //        PlaceOfInterest poi7 = new PlaceOfInterest(7, "Gatibu eta Ken Zazpi (Auditorio Seber Altube)", auditorio);
+//        Game puzzle = new Game(1, 1, "Puzzle de Gernika", null, "com.elorrieta.didaktikapp.puzzle.PuzzleActivity");
 //        db.placeOfInterestDao().insertAll(poi1, poi2, poi3, poi4, poi5, poi6, poi7);
+//        db.gameDao().insertAll(puzzle);
     }
 }

@@ -20,7 +20,9 @@ import androidx.room.Room;
 import com.elorrieta.didaktikapp.R;
 import com.elorrieta.didaktikapp.databinding.ActivityMapsBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
+import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
+import com.elorrieta.didaktikapp.model.entities.PoIAndGame;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -51,6 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final HashMap<String, PlaceOfInterest> placesMap = new HashMap<>();
     private boolean freeMode = false;
     private Button navigateButton;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +68,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         createLocationRequest();
 
         // cargamos los lugares de interes en el mapa
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+        db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "didaktikapp").fallbackToDestructiveMigration().allowMainThreadQueries().build();
         for (PlaceOfInterest poi : db.placeOfInterestDao().getAll()) {
-             placesMap.put(poi.name, poi);
+            placesMap.put(poi.name, poi);
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -121,14 +124,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .position(poi.getLatLng())
                     .title(poi.name));
         }
-
-        //Nuevo marcador para puzzle
-        //for (PlaceOfInterest puzzle : placesMap.values()) {
-          //  mMap.addMarker(new MarkerOptions()
-            //        .position(puzzle.getLatLng())
-            //        .title(puzzle.name));
-        //}
-
 
         // Funcion para mostrar el boton de navegacion si estamos en modo libre
         mMap.setOnMarkerClickListener(marker -> {
@@ -276,8 +271,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         navigateButton.setText(poi.name);
         navigateButton.setOnClickListener(v -> {
             // Al pulsar el boton, se abre el marcador en el mapa
-            Toast.makeText(this, "Abriendo " + poi.name, Toast.LENGTH_SHORT).show();
+            Game game = db.gameDao().findByPoI(poi.idPoI);
+            if (game != null) {
+                Class<?> activityClass = null;
+                try {
+                    activityClass = Class.forName(game.gameClass);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(this, activityClass);
+                startActivity(intent);
+            }
         });
     }
-
 }

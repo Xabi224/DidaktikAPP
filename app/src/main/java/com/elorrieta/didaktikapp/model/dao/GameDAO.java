@@ -16,6 +16,9 @@ public interface GameDAO {
     @Query("SELECT * FROM Game WHERE idGame = :id")
     Game findById(int id);
 
+    @Query("SELECT * FROM Game WHERE idPoI = :idPoI")
+    Game findByPoI(int idPoI);
+
     @Query("SELECT * FROM Game")
     List<Game> getAll();
 
