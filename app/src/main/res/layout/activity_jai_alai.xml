@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JaiAlai">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="408dp"
+        android:layout_height="424dp"
+        android:layout_marginBottom="192dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/jai_alai"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/eskupilota"
+        android:layout_width="53dp"
+        android:layout_height="24dp"
+        android:text="Button"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="424dp" />
+
+    <Button
+        android:id="@+id/zesta"
+        android:layout_width="55dp"
+        android:layout_height="27dp"
+        android:text="Button"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="424dp"
+        tools:visibility="invisible" />
+
+    <Button
+        android:id="@+id/pala"
+        android:layout_width="48dp"
+        android:layout_height="26dp"
+        android:text="Button"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="268dp"
+        tools:layout_editor_absoluteY="425dp"
+        tools:visibility="invisible" />
+
+    <Button
+        android:id="@+id/frontoia"
+        android:layout_width="65dp"
+        android:layout_height="37dp"
+        android:text="Button"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="189dp"
+        tools:layout_editor_absoluteY="324dp"
+        tools:visibility="invisible" />
+
+    <Button
+        android:id="@+id/jaialai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="209dp"
+        tools:visibility="invisible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
