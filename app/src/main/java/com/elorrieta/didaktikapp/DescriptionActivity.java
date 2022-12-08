@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.elorrieta.didaktikapp.databinding.ActivityDescriptionBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
 import com.elorrieta.didaktikapp.model.entities.Game;
+import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,28 +33,21 @@ public class DescriptionActivity extends AppCompatActivity {
         ActivityDescriptionBinding binding = ActivityDescriptionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Game game = AppDatabase.getDatabase(getApplicationContext()).gameDao().findById(getIntent().getIntExtra("id", 0));
+        PlaceOfInterest poi = (PlaceOfInterest) getIntent().getSerializableExtra("poi");
+        Game game = AppDatabase.getDatabase(getApplicationContext()).gameDao().findById(poi.idPoI);
 
         TextView description = binding.tvDescription;
         description.setText(game.description);
 
-//        mediaPlayer = MediaPlayer.create(this, R.raw.guernikakoadroa);
-        File file = null;
         try {
-            file = File.createTempFile("temp", "m3u", getCacheDir());
-            if (!file.exists()) {
-                file.createNewFile();
-                FileOutputStream fos = new FileOutputStream(file);
-                fos.write(game.audio);
-                fos.close();
-            }
+            File file = File.createTempFile("temp", "m4a", getCacheDir());
+            file.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(game.audio);
+            fos.close();
+            mediaPlayer = new MediaPlayer();
             FileInputStream fis = new FileInputStream(file);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            mediaPlayer.setDataSource(file.getAbsolutePath());
+            mediaPlayer.setDataSource(fis.getFD());
             mediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();

@@ -267,7 +267,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         navigateButton.setOnClickListener(v -> {
             // Al pulsar el boton, se abre el la actividad de la descripcion
             Intent intent = new Intent(this, DescriptionActivity.class);
-            intent.putExtra("id", poi.idPoI);
+            intent.putExtra("poi", poi);
             startActivity(intent);
         });
     }
