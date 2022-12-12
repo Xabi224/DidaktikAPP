@@ -133,10 +133,6 @@ public class DescriptionActivity extends AppCompatActivity {
         super.onPause();
         if (mediaPlayer != null) {
             mediaPlayer.pause();
-//            if (isFinishing()) {
-//                mediaPlayer.stop();
-//                mediaPlayer.release();
-//            }
         }
     }
 }

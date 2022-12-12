@@ -11,9 +11,9 @@ import com.elorrieta.didaktikapp.model.dao.PlaceOfInterestDAO;
 import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 
-@Database(entities = {PlaceOfInterest.class, Game.class}, version = 2)
+@Database(entities = {PlaceOfInterest.class, Game.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
-    private static AppDatabase INSTANCE;
+    private static volatile AppDatabase INSTANCE;
 
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
