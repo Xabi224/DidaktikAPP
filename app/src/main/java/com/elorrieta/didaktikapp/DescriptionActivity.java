@@ -36,6 +36,18 @@ public class DescriptionActivity extends AppCompatActivity {
         PlaceOfInterest poi = (PlaceOfInterest) getIntent().getSerializableExtra("poi");
         Game game = AppDatabase.getDatabase(getApplicationContext()).gameDao().findById(poi.idPoI);
 
+        if (game.description == null) {
+            Class<?> activityClass = null;
+            try {
+                activityClass = Class.forName(game.gameClass);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            Intent intent = new Intent(this, activityClass);
+            startActivity(intent);
+            return;
+        }
+
         TextView description = binding.tvDescription;
         description.setText(game.description);
 
@@ -115,4 +127,16 @@ public class DescriptionActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+//            if (isFinishing()) {
+//                mediaPlayer.stop();
+//                mediaPlayer.release();
+//            }
+        }
+    }
 }
