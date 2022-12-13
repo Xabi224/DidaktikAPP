@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.elorrieta.didaktikapp.databinding.ActivityDescriptionBinding;
@@ -25,6 +27,8 @@ public class DescriptionActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
     private SeekBar progressBar;
+    private MediaPlayer mediaPlayerExtra;
+    private SeekBar progressBarExtra;
     private final Handler handler = new Handler();
 
     @Override
@@ -37,33 +41,13 @@ public class DescriptionActivity extends AppCompatActivity {
         Game game = AppDatabase.getDatabase(getApplicationContext()).gameDao().findById(poi.idPoI);
 
         if (game.description == null) {
-            Class<?> activityClass = null;
-            try {
-                activityClass = Class.forName(game.gameClass);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            Intent intent = new Intent(this, activityClass);
-            startActivity(intent);
-            return;
+            changeActivity(game.gameClass);
         }
 
         TextView description = binding.tvDescription;
         description.setText(game.description);
 
-        try {
-            File file = File.createTempFile("temp", "m4a", getCacheDir());
-            file.deleteOnExit();
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(game.audio);
-            fos.close();
-            mediaPlayer = new MediaPlayer();
-            FileInputStream fis = new FileInputStream(file);
-            mediaPlayer.setDataSource(fis.getFD());
-            mediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mediaPlayer = createMediaPlayer(game.audio);
 
         progressBar = binding.seekBar;
         progressBar.setMax(mediaPlayer.getDuration());
@@ -72,21 +56,10 @@ public class DescriptionActivity extends AppCompatActivity {
         playPauseButton.setContentDescription("play");
         playPauseButton.setImageResource(android.R.drawable.ic_media_play);
         // funcion del boton de Play/Pause
-        playPauseButton.setOnClickListener(view -> {
-            if (playPauseButton.getContentDescription().equals("play")) {
-                playPauseButton.setContentDescription("pause");
-                playPauseButton.setImageResource(android.R.drawable.ic_media_pause);
-                mediaPlayer.start();
-                handler.postDelayed(UpdateSongTime, 100);
-            } else {
-                playPauseButton.setContentDescription("play");
-                playPauseButton.setImageResource(android.R.drawable.ic_media_play);
-                mediaPlayer.pause();
-            }
-        });
+        playPauseButton.setOnClickListener(createOnClickListener(playPauseButton, mediaPlayer, progressBar));
 
         // funcion de la barra de progreso
-        progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        progressBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
@@ -107,26 +80,84 @@ public class DescriptionActivity extends AppCompatActivity {
         Button button = binding.button;
         // funcion del boton de iniciar el juego
         button.setOnClickListener(view -> {
-            Class<?> activityClass = null;
-            try {
-                activityClass = Class.forName(game.gameClass);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            Intent intent = new Intent(this, activityClass);
-            startActivity(intent);
+            changeActivity(game.gameClass);
         });
     }
 
-    private final Runnable UpdateSongTime = new Runnable() {
-        @Override
-        public void run() {
-            progressBar.setProgress(mediaPlayer.getCurrentPosition());
-            if (mediaPlayer.isPlaying()) {
-                handler.postDelayed(this, 100);
+//    private final Runnable UpdateSongTime = new Runnable() {
+//        @Override
+//        public void run() {
+//            progressBar.setProgress(mediaPlayer.getCurrentPosition());
+//            if (mediaPlayer.isPlaying()) {
+//                handler.postDelayed(this, 100);
+//            }
+//        }
+//    };
+//
+//    private final Runnable UpdateSongTimeExtra = new Runnable() {
+//        @Override
+//        public void run() {
+//            progressBarExtra.setProgress(mediaPlayer.getCurrentPosition());
+//            if (mediaPlayerExtra.isPlaying()) {
+//                handler.postDelayed(this, 100);
+//            }
+//        }
+//    };
+
+    private View.OnClickListener createOnClickListener(ImageButton button, MediaPlayer player, SeekBar bar) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (button.getContentDescription().equals("play")) {
+                    button.setContentDescription("pause");
+                    button.setImageResource(android.R.drawable.ic_media_pause);
+                    player.start();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            bar.setProgress(player.getCurrentPosition());
+                            if (player.isPlaying()) {
+                                handler.postDelayed(this, 100);
+                            }
+                        }
+                    }, 100);
+                } else {
+                    button.setContentDescription("play");
+                    button.setImageResource(android.R.drawable.ic_media_play);
+                    player.pause();
+                }
             }
+        };
+    }
+
+    private MediaPlayer createMediaPlayer(byte[] binary) {
+        MediaPlayer player = null;
+        try {
+            File file = File.createTempFile("temp", "m4a", getCacheDir());
+            file.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(binary);
+            fos.close();
+            player = new MediaPlayer();
+            FileInputStream fis = new FileInputStream(file);
+            player.setDataSource(fis.getFD());
+            player.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    };
+        return player;
+    }
+
+    private void changeActivity(String className) {
+        Class<?> activityClass = null;
+        try {
+            activityClass = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Intent intent = new Intent(this, activityClass);
+        startActivity(intent);
+    }
 
     @Override
     protected void onPause() {
