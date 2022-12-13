@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
+
 @Entity
-public class PlaceOfInterest {
+public class PlaceOfInterest implements Serializable {
 
     @PrimaryKey
     public int idPoI;

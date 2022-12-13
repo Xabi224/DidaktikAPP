@@ -15,14 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
-import androidx.room.Room;
 
+import com.elorrieta.didaktikapp.DescriptionActivity;
 import com.elorrieta.didaktikapp.R;
 import com.elorrieta.didaktikapp.databinding.ActivityMapsBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
 import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
-import com.elorrieta.didaktikapp.model.entities.PoIAndGame;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -53,7 +52,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final HashMap<String, PlaceOfInterest> placesMap = new HashMap<>();
     private boolean freeMode = false;
     private Button navigateButton;
-    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // configuramos la localizacion
         createLocationRequest();
 
-        // cargamos los lugares de interes en el mapa
-        db = Room.databaseBuilder(this, AppDatabase.class, "didaktikapp")
-                .createFromAsset("database/didaktikapp.db")
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
-                .build();
-        for (PlaceOfInterest poi : db.placeOfInterestDao().getAll()) {
+        for (PlaceOfInterest poi : AppDatabase.getDatabase(getApplicationContext()).placeOfInterestDao().getAll()) {
             placesMap.put(poi.name, poi);
         }
 
@@ -187,7 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
-        startLocationUpdates();
+        if (!freeMode) startLocationUpdates();
     }
 
     private void startLocationUpdates() {
@@ -273,18 +265,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         navigateButton.setVisibility(View.VISIBLE);
         navigateButton.setText(poi.name);
         navigateButton.setOnClickListener(v -> {
-            // Al pulsar el boton, se abre el marcador en el mapa
-            Game game = db.gameDao().findByPoI(poi.idPoI);
-            if (game != null) {
-                Class<?> activityClass = null;
-                try {
-                    activityClass = Class.forName(game.gameClass);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                Intent intent = new Intent(this, activityClass);
-                startActivity(intent);
-            }
+            // Al pulsar el boton, se abre el la actividad de la descripcion
+            Intent intent = new Intent(this, DescriptionActivity.class);
+            intent.putExtra("poi", poi);
+            startActivity(intent);
         });
     }
 }
