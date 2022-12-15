@@ -3,9 +3,11 @@ package com.elorrieta.didaktikapp.map;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +22,6 @@ import com.elorrieta.didaktikapp.DescriptionActivity;
 import com.elorrieta.didaktikapp.R;
 import com.elorrieta.didaktikapp.databinding.ActivityMapsBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
-import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -44,13 +45,13 @@ import java.util.Objects;
 @SuppressLint("MissingPermission")
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private SharedPreferences preferences;
     private FusedLocationProviderClient fusedLocationClient;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
     private LatLng currentLocation;
     private GoogleMap mMap;
     private final HashMap<String, PlaceOfInterest> placesMap = new HashMap<>();
-    private boolean freeMode = false;
     private Button navigateButton;
 
     @Override
@@ -59,6 +60,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences.edit().putBoolean("freeMode", false).apply();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -106,7 +110,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         // Funcion al pulsar sobre la posicion actual
         mMap.setOnMyLocationClickListener(location -> {
-            if (freeMode) {
+            if (preferences.getBoolean("freeMode", false)) {
                 stopFreeMode();
             } else {
                 promptFreeMode();
@@ -122,7 +126,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Funcion para mostrar el boton de navegacion si estamos en modo libre
         mMap.setOnMarkerClickListener(marker -> {
-            if (freeMode) {
+            if (preferences.getBoolean("freeMode", false)) {
                 navigateButton.setVisibility(View.GONE);
                 showButton(Objects.requireNonNull(placesMap.get(marker.getTitle())));
             } else {
@@ -179,7 +183,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
-        if (!freeMode) startLocationUpdates();
+        if (!preferences.getBoolean("freeMode", false)) startLocationUpdates();
     }
 
     private void startLocationUpdates() {
@@ -230,7 +234,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void startFreeMode() {
-        freeMode = true;
+        preferences.edit().putBoolean("freeMode", true).apply();
         stopLocationUpdates();
         mMap.getUiSettings().setScrollGesturesEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -239,7 +243,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void stopFreeMode() {
-        freeMode = false;
+        preferences.edit().putBoolean("freeMode", false).apply();
         startLocationUpdates();
         mMap.getUiSettings().setScrollGesturesEnabled(false);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);

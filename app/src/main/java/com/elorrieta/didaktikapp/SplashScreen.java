@@ -32,15 +32,6 @@ public class SplashScreen extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE}, 1);
         }
 
-        // aplicamos el tema que este guardado en las opciones
-        SharedPreferences opciones = PreferenceManager.getDefaultSharedPreferences(this);
-        if (opciones.getBoolean(getString(R.string.tema_defecto), true)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        } else if (opciones.getBoolean(getString(R.string.tema_oscuro), true)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
         setContentView(R.layout.activity_splash_screen);
 
         ImageView imagen = findViewById(R.id.imageView);
