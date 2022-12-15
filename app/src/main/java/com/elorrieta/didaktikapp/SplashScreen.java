@@ -1,17 +1,12 @@
 package com.elorrieta.didaktikapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.ImageView;
 
 import com.elorrieta.didaktikapp.map.MapsActivity;
