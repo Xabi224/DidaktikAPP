@@ -60,6 +60,7 @@ public class DescriptionActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(this, activityClass);
         startActivity(intent);
+        finish();
     }
 
     @Override

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/teal_200"
     android:padding="24dp"
-    tools:context=".Galdetegia">
+    tools:context=".galdetegi.Galdetegia">
 
 
     <ImageView
@@ -41,7 +41,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="42dp"
-        android:text="@string/this_will_be_the_question"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
@@ -61,7 +60,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:backgroundTint="@color/white"
-            android:text="@string/ans_a"
             android:textColor="@color/black" />
 
         <Button
@@ -70,7 +68,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:backgroundTint="@color/white"
-            android:text="@string/ans_b"
             android:textColor="@color/black" />
 
         <Button
@@ -79,7 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:backgroundTint="@color/white"
-            android:text="@string/ans_c"
             android:textColor="@color/black" />
 
     </LinearLayout>

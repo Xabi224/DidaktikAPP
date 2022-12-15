@@ -32,6 +32,22 @@
         </activity>
 
         <activity
+            android:name=".galdetegi.GaldetegiMain"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".galdetegi.Galdetegia"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
             android:name=".puzzle.PuzzleActivity"
             android:exported="false">
             <meta-data

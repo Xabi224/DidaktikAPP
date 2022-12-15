@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.elorrieta.didaktikapp.R;
+import com.elorrieta.didaktikapp.map.MapsActivity;
 
 
 import java.io.IOException;
@@ -50,35 +51,31 @@ public class PuzzleActivity extends AppCompatActivity {
             assetName=files[0 % files.length];
 
         } catch (IOException e) {
-            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT);
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         final RelativeLayout layout = findViewById(R.id.layout);
         final ImageView imageView = findViewById(R.id.imageView);
 
-        Intent intent = getIntent();
         // run image related code after the view was laid out
         // to have all dimensions calculated
         String finalAssetName = assetName;
-        imageView.post(new Runnable() {
-            @Override
-            public void run() {
-                if (finalAssetName != null) {
-                    setPicFromAsset(finalAssetName, imageView);
-                }
-                pieces = splitImage();
-                TouchListener touchListener = new TouchListener(PuzzleActivity.this);
-                // shuffle pieces order
-                Collections.shuffle(pieces);
-                for (PiezaPuzzle piece : pieces) {
-                    piece.setOnTouchListener(touchListener);
-                    layout.addView(piece);
-                    // randomize position, on the bottom of the screen
-                    RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-                    lParams.leftMargin = new Random().nextInt(layout.getWidth() - piece.pieceWidth);
-                    lParams.topMargin = layout.getHeight() - piece.pieceHeight;
-                    piece.setLayoutParams(lParams);
-                }
+        imageView.post(() -> {
+            if (finalAssetName != null) {
+                setPicFromAsset(finalAssetName, imageView);
+            }
+            pieces = splitImage();
+            TouchListener touchListener = new TouchListener(PuzzleActivity.this);
+            // shuffle pieces order
+            Collections.shuffle(pieces);
+            for (PiezaPuzzle piece : pieces) {
+                piece.setOnTouchListener(touchListener);
+                layout.addView(piece);
+//                 randomize position, on the bottom of the screen
+                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
+                lParams.leftMargin = new Random().nextInt(layout.getWidth() - piece.pieceWidth);
+                lParams.topMargin = layout.getHeight() - piece.pieceHeight;
+                piece.setLayoutParams(lParams);
             }
         });
     }
@@ -284,8 +281,8 @@ public class PuzzleActivity extends AppCompatActivity {
         int imgViewW = imageView.getWidth();
         int imgViewH = imageView.getHeight();
 
-        int top = (int) (imgViewH - actH)/2;
-        int left = (int) (imgViewW - actW)/2;
+        int top = (imgViewH - actH)/2;
+        int left = (imgViewW - actW)/2;
 
         ret[0] = left;
         ret[1] = top;
@@ -298,6 +295,9 @@ public class PuzzleActivity extends AppCompatActivity {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.kirby);
             mediaPlayer.start();
             Toast.makeText(this, "You win!", Toast.LENGTH_LONG).show();
+            // volver al mapa
+            Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent);
             finish();
         }
     }
