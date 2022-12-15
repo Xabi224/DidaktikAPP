@@ -3,7 +3,7 @@ package com.elorrieta.didaktikapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.room.Room;
+
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -15,10 +15,7 @@ import android.preference.PreferenceManager;
 import android.widget.ImageView;
 
 import com.elorrieta.didaktikapp.map.MapsActivity;
-import com.elorrieta.didaktikapp.model.database.AppDatabase;
-import com.elorrieta.didaktikapp.model.entities.Game;
-import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
-import com.google.android.gms.maps.model.LatLng;
+
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreen extends AppCompatActivity {
