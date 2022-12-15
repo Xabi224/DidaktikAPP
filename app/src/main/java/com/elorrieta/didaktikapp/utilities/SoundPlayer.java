@@ -1,6 +1,8 @@
 package com.elorrieta.didaktikapp.utilities;
 
 import android.media.MediaPlayer;
+import android.os.Handler;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 
@@ -11,6 +13,7 @@ import java.io.IOException;
 
 public class SoundPlayer {
 
+    private final Handler handler = new Handler();
     MediaPlayer mediaPlayer;
     ImageButton playPauseButton;
     SeekBar progressBar;
@@ -19,6 +22,28 @@ public class SoundPlayer {
         this.mediaPlayer = createMediaPlayer(audio);
         this.playPauseButton = playPauseButton;
         this.progressBar = progressBar;
+        progressBar.setMax(mediaPlayer.getDuration());
+        playPauseButton.setContentDescription("play");
+        playPauseButton.setImageResource(android.R.drawable.ic_media_play);
+        // funcion del boton de Play/Pause
+        playPauseButton.setOnClickListener(createOnClickListener(playPauseButton, mediaPlayer, progressBar));
+        progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    mediaPlayer.seekTo(progress);
+                    progressBar.setProgress(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
     private MediaPlayer createMediaPlayer(byte[] binary) {
@@ -37,6 +62,37 @@ public class SoundPlayer {
             e.printStackTrace();
         }
         return player;
+    }
+    private View.OnClickListener createOnClickListener(ImageButton button, MediaPlayer player, SeekBar bar) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (button.getContentDescription().equals("play")) {
+                    button.setContentDescription("pause");
+                    button.setImageResource(android.R.drawable.ic_media_pause);
+                    player.start();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            bar.setProgress(player.getCurrentPosition());
+                            if (player.isPlaying()) {
+                                handler.postDelayed(this, 100);
+                            }
+                        }
+                    }, 100);
+                } else {
+                    button.setContentDescription("play");
+                    button.setImageResource(android.R.drawable.ic_media_play);
+                    player.pause();
+                }
+            }
+        };
+    }
+
+    public void pause() {
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
     }
 
 }

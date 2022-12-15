@@ -1,35 +1,21 @@
 package com.elorrieta.didaktikapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.elorrieta.didaktikapp.databinding.ActivityDescriptionBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
 import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.elorrieta.didaktikapp.utilities.SoundPlayer;
 
 public class DescriptionActivity extends AppCompatActivity {
 
-    private MediaPlayer mediaPlayer;
-    private SeekBar progressBar;
-    private MediaPlayer mediaPlayerExtra;
-    private SeekBar progressBarExtra;
-    private final Handler handler = new Handler();
+    private SoundPlayer soundPlayer;
+    private SoundPlayer soundPlayerExtra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,108 +30,25 @@ public class DescriptionActivity extends AppCompatActivity {
             changeActivity(game.gameClass);
         }
 
-        TextView description = binding.tvDescription;
-        description.setText(game.description);
-
-        mediaPlayer = createMediaPlayer(game.audio);
-
-        progressBar = binding.seekBar;
-        progressBar.setMax(mediaPlayer.getDuration());
-
-        ImageButton playPauseButton = binding.playPauseButton;
-        playPauseButton.setContentDescription("play");
-        playPauseButton.setImageResource(android.R.drawable.ic_media_play);
-        // funcion del boton de Play/Pause
-        playPauseButton.setOnClickListener(createOnClickListener(playPauseButton, mediaPlayer, progressBar));
-
-        // funcion de la barra de progreso
-        progressBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
-                    mediaPlayer.seekTo(progress);
-                    progressBar.setProgress(progress);
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-        Button button = binding.button;
-        // funcion del boton de iniciar el juego
-        button.setOnClickListener(view -> {
-            changeActivity(game.gameClass);
-        });
-    }
-
-//    private final Runnable UpdateSongTime = new Runnable() {
-//        @Override
-//        public void run() {
-//            progressBar.setProgress(mediaPlayer.getCurrentPosition());
-//            if (mediaPlayer.isPlaying()) {
-//                handler.postDelayed(this, 100);
-//            }
-//        }
-//    };
-//
-//    private final Runnable UpdateSongTimeExtra = new Runnable() {
-//        @Override
-//        public void run() {
-//            progressBarExtra.setProgress(mediaPlayer.getCurrentPosition());
-//            if (mediaPlayerExtra.isPlaying()) {
-//                handler.postDelayed(this, 100);
-//            }
-//        }
-//    };
-
-    private View.OnClickListener createOnClickListener(ImageButton button, MediaPlayer player, SeekBar bar) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (button.getContentDescription().equals("play")) {
-                    button.setContentDescription("pause");
-                    button.setImageResource(android.R.drawable.ic_media_pause);
-                    player.start();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            bar.setProgress(player.getCurrentPosition());
-                            if (player.isPlaying()) {
-                                handler.postDelayed(this, 100);
-                            }
-                        }
-                    }, 100);
-                } else {
-                    button.setContentDescription("play");
-                    button.setImageResource(android.R.drawable.ic_media_play);
-                    player.pause();
-                }
-            }
-        };
-    }
-
-    private MediaPlayer createMediaPlayer(byte[] binary) {
-        MediaPlayer player = null;
-        try {
-            File file = File.createTempFile("temp", "m4a", getCacheDir());
-            file.deleteOnExit();
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(binary);
-            fos.close();
-            player = new MediaPlayer();
-            FileInputStream fis = new FileInputStream(file);
-            player.setDataSource(fis.getFD());
-            player.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // establecer los textos
+        binding.tvDescription.setText(game.description);
+        if (game.descriptionExtra != null) {
+            binding.tvDescriptionExtra.setText(game.descriptionExtra);
+        } else {
+            binding.tvDescriptionExtra.setVisibility(View.GONE);
         }
-        return player;
+
+        // establecer los audios
+        soundPlayer = new SoundPlayer(game.audio, binding.playPauseButton, binding.seekBar);
+        if (game.audioExtra != null) {
+            soundPlayerExtra = new SoundPlayer(game.audioExtra, binding.playPauseButtonExtra, binding.seekBarExtra);
+        } else {
+            binding.playPauseButtonExtra.setVisibility(View.GONE);
+            binding.seekBarExtra.setVisibility(View.GONE);
+        }
+
+        // funcion del boton de iniciar el juego
+        binding.button.setOnClickListener(view -> changeActivity(game.gameClass));
     }
 
     private void changeActivity(String className) {
@@ -162,8 +65,9 @@ public class DescriptionActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mediaPlayer != null) {
-            mediaPlayer.pause();
+        soundPlayer.pause();
+        if (soundPlayerExtra != null) {
+            soundPlayerExtra.pause();
         }
     }
 }
