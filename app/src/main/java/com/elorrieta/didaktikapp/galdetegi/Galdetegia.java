@@ -1,6 +1,7 @@
 package com.elorrieta.didaktikapp.galdetegi;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,8 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.elorrieta.didaktikapp.R;
-import com.elorrieta.didaktikapp.SplashScreen;
-import com.elorrieta.didaktikapp.map.MapsActivity;
+
 import com.elorrieta.didaktikapp.puzzle.PuzzleActivity;
 
 public class Galdetegia extends AppCompatActivity implements View.OnClickListener {
@@ -28,6 +28,7 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
     int currentQuestionIndex = 0;
     String selectedAnswer = "";
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +94,7 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
                     .setPositiveButton("Jarraitu", (dialogInterface, i) -> loadNewQuestion())
                     .setCancelable(false)
                     .show();
-       ;
+
         }
        else if(clickedButton.getId()==R.id.ans_C && QuestionAnswer.choices[currentQuestionIndex][2]==QuestionAnswer.correctAnswers[currentQuestionIndex]){
 
@@ -123,8 +124,6 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
 
 
 
-
-
     void loadNewQuestion(){
 
         if(currentQuestionIndex == totalQuestion ){
@@ -143,24 +142,19 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
     }
 
     void finishQuiz(){
-        String passStatus = "";
-        if(score > totalQuestion*1){
-            passStatus = "Zorionak";
-        }else{
-            passStatus = "Zorionak";
-        }
+        String passStatus;
+        passStatus = "";
+        passStatus = "Zorionak";
 
         new AlertDialog.Builder(this)
                 .setTitle(passStatus)
                 .setMessage("Zure piezak 4/4 dira")
-                .setPositiveButton("Puzzlea egin!!",(dialogInterface, i) -> restartQuiz() )
+                .setPositiveButton("Puzzlea egin!!",(dialogInterface, i) -> endQuiz() )
                 .setCancelable(false)
                 .show();
-
-
     }
 
-    void restartQuiz(){
+    void endQuiz(){
         Intent intent = new Intent(Galdetegia.this, PuzzleActivity.class);
         startActivity(intent);
         finish();

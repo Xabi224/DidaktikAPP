@@ -4,59 +4,89 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".DescriptionActivity">
 
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="?attr/colorSecondaryVariant"
+        android:orientation="vertical"
+        android:padding="5dp">
 
-        <ImageButton
-            android:id="@+id/playPauseButton"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/boton_play_pause" />
+            android:orientation="horizontal">
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="8"/>
+            <ImageButton
+                android:id="@+id/playPauseButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/boton_play_pause" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="8" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvDescriptionExtra"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <LinearLayout
+        android:id="@+id/layoutExtra"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="?attr/colorSecondaryVariant"
+        android:orientation="vertical"
+        android:padding="5dp">
 
-        <ImageButton
-            android:id="@+id/playPauseButtonExtra"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tvDescriptionExtra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/boton_play_pause" />
+            android:orientation="horizontal">
 
-        <SeekBar
-            android:id="@+id/seekBarExtra"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="8" />
+            <ImageButton
+                android:id="@+id/playPauseButtonExtra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/boton_play_pause" />
+
+            <SeekBar
+                android:id="@+id/seekBarExtra"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="8" />
+        </LinearLayout>
+
     </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/jolastu"/>
+        android:text="@string/jolastu" />
 </LinearLayout>

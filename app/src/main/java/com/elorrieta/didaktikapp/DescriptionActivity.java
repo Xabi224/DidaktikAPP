@@ -47,6 +47,10 @@ public class DescriptionActivity extends AppCompatActivity {
             binding.seekBarExtra.setVisibility(View.GONE);
         }
 
+        if (game.descriptionExtra == null && game.audioExtra == null) {
+            binding.layoutExtra.setVisibility(View.GONE);
+        }
+
         // funcion del boton de iniciar el juego
         binding.button.setOnClickListener(view -> changeActivity(game.gameClass));
     }
