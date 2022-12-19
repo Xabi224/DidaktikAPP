@@ -14,6 +14,8 @@ public class JaiAlai extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jai_alai);
 
+
+
        Button boton_eskupilota  = findViewById(R.id.eskupilota);
        Button boton_frontis = findViewById(R.id.frontoia);
        Button boton_jaiAlai = findViewById(R.id.jaialai);
@@ -37,9 +39,13 @@ public class JaiAlai extends AppCompatActivity {
        boton_eskupilota.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-
-               eskupi.start();
-               finish();
+               int posicion;
+               if(eskupi != null && eskupi.isPlaying()) {
+                   posicion = eskupi.getCurrentPosition();
+                   eskupi.pause();
+               }else {
+                   eskupi.start();
+               }
            }
        });
 
@@ -47,8 +53,14 @@ public class JaiAlai extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               frontis.start();
-               finish();
+
+               int posicion;
+               if(frontis != null && frontis.isPlaying()) {
+                   posicion = frontis.getCurrentPosition();
+                   frontis.pause();
+               }else {
+                   frontis.start();
+               }
            }
        });
 
@@ -56,8 +68,13 @@ public class JaiAlai extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               jai_alai.start();
-               finish();
+               int posicion;
+               if(jai_alai != null && jai_alai.isPlaying()) {
+                   posicion = jai_alai.getCurrentPosition();
+                   jai_alai.pause();
+               }else {
+                   jai_alai.start();
+               }
            }
        });
 
@@ -65,8 +82,13 @@ public class JaiAlai extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               pala.start();
-               finish();
+               int posicion;
+               if(pala != null && pala.isPlaying()) {
+                   posicion = pala.getCurrentPosition();
+                   pala.pause();
+               }else {
+                   pala.start();
+               }
            }
        });
 
@@ -74,8 +96,13 @@ public class JaiAlai extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               zesta.start();
-               finish();
+               int posicion;
+               if(zesta != null && zesta.isPlaying()) {
+                   posicion = zesta.getCurrentPosition();
+                   zesta.pause();
+               }else {
+                   zesta.start();
+               }
            }
        });
 
