@@ -62,7 +62,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(binding.getRoot());
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        preferences.edit().putBoolean("freeMode", false).apply();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -136,6 +135,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return true;
         });
 
+        // si estabamos en modo libre, volvemos a activarlo
+        if (preferences.getBoolean("freeMode", false)) startFreeMode();
+
     }
 
     protected void createLocationRequest() {
@@ -174,7 +176,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 createLocationRequest();
             } else {
                 // El usuario ha rechazado la configuracion de localizacion
-                Toast.makeText(this, "Es necesario aceptar la configuracion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Konfigurazioa onartu behar da", Toast.LENGTH_SHORT).show();
                 createLocationRequest();
             }
         }
@@ -205,27 +207,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void promptFreeMode() {
         // Abrimos un prompt para preguntar la contraseña del modo sin GPS
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modo libre");
-        alert.setMessage("Introduce la contraseña para activar el modo libre");
+        alert.setTitle("Modu librea");
+        alert.setMessage("Sartu pasahitza modu librea aktibatzeko");
 
         // Input para la contraseña
         final EditText input = new EditText(this);
         alert.setView(input);
 
         // Funcion del boton OK
-        alert.setPositiveButton("Ok", (dialog, whichButton) -> {
+        alert.setPositiveButton("Baieztatu", (dialog, whichButton) -> {
             String value = input.getText().toString();
             if (value.equals("1234")) {
                 // Si la contraseña es correcta, se activa el modo libre
                 startFreeMode();
             } else {
                 // Si la contraseña es incorrecta, se muestra un mensaje de error
-                Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Pasahitza ez da zuzena", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Funcion del boton de cancelar
-        alert.setNegativeButton("Cancel", (dialog, whichButton) -> {
+        alert.setNegativeButton("Ezeztatu", (dialog, whichButton) -> {
             // No hacemos nada
             dialog.dismiss();
         });
@@ -239,7 +241,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setScrollGesturesEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(43.31543429260586, -2.6777311296364155), 16));
-        Toast.makeText(this, "Modo libre activado", Toast.LENGTH_SHORT).show();
     }
 
     private void stopFreeMode() {
@@ -247,7 +248,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startLocationUpdates();
         mMap.getUiSettings().setScrollGesturesEnabled(false);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        Toast.makeText(this, "Modo libre desactivado", Toast.LENGTH_SHORT).show();
     }
 
     private void checkDistanceWithMarkers() {
