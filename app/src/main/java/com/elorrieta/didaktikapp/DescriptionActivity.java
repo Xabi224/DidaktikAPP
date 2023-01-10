@@ -28,31 +28,32 @@ public class DescriptionActivity extends AppCompatActivity {
 
         if (game.description == null) {
             changeActivity(game.gameClass);
-        }
-
-        // establecer los textos
-        binding.tvDescription.setText(game.description);
-        if (game.descriptionExtra != null) {
-            binding.tvDescriptionExtra.setText(game.descriptionExtra);
         } else {
-            binding.tvDescriptionExtra.setVisibility(View.GONE);
-        }
 
-        // establecer los audios
-        soundPlayer = new SoundPlayer(game.audio, binding.playPauseButton, binding.seekBar);
-        if (game.audioExtra != null) {
-            soundPlayerExtra = new SoundPlayer(game.audioExtra, binding.playPauseButtonExtra, binding.seekBarExtra);
-        } else {
-            binding.playPauseButtonExtra.setVisibility(View.GONE);
-            binding.seekBarExtra.setVisibility(View.GONE);
-        }
+            // establecer los textos
+            binding.tvDescription.setText(game.description);
+            if (game.descriptionExtra != null) {
+                binding.tvDescriptionExtra.setText(game.descriptionExtra);
+            } else {
+                binding.tvDescriptionExtra.setVisibility(View.GONE);
+            }
 
-        if (game.descriptionExtra == null && game.audioExtra == null) {
-            binding.layoutExtra.setVisibility(View.GONE);
-        }
+            // establecer los audios
+            soundPlayer = new SoundPlayer(game.audio, binding.playPauseButton, binding.seekBar);
+            if (game.audioExtra != null) {
+                soundPlayerExtra = new SoundPlayer(game.audioExtra, binding.playPauseButtonExtra, binding.seekBarExtra);
+            } else {
+                binding.playPauseButtonExtra.setVisibility(View.GONE);
+                binding.seekBarExtra.setVisibility(View.GONE);
+            }
 
-        // funcion del boton de iniciar el juego
-        binding.button.setOnClickListener(view -> changeActivity(game.gameClass));
+            if (game.descriptionExtra == null && game.audioExtra == null) {
+                binding.layoutExtra.setVisibility(View.GONE);
+            }
+
+            // funcion del boton de iniciar el juego
+            binding.button.setOnClickListener(view -> changeActivity(game.gameClass));
+        }
     }
 
     private void changeActivity(String className) {
