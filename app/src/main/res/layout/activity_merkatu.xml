@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".merkatu.MerkatuActivity">
+
+    <ImageView
+        android:id="@+id/imageErroskilak"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="278dp"
+        android:contentDescription="TODO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Erroskilak" />
+
+    <ImageView
+        android:id="@+id/imagePiperrak"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="145dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageErroskilak"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Piperrak" />
+
+    <ImageView
+        android:id="@+id/imageDetergentea"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imagePiperrak"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Detergentea" />
+
+    <Button
+        android:id="@+id/btnErroxkilak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Erroxkilak"
+        app:layout_constraintBottom_toTopOf="@+id/imageIndabak"
+        app:layout_constraintEnd_toStartOf="@+id/btnPiperrak"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageErroskilak"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btnAlfombra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Alfombra"
+        app:layout_constraintBottom_toTopOf="@+id/imageYogurtak"
+        app:layout_constraintEnd_toStartOf="@+id/btnZapatila"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageAlfombra"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btnZapatila"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Zapatilak"
+        app:layout_constraintBottom_toTopOf="@+id/imageTomateak"
+        app:layout_constraintEnd_toStartOf="@+id/btnTxakolina"
+        app:layout_constraintStart_toEndOf="@+id/btnAlfombra"
+        app:layout_constraintTop_toBottomOf="@+id/imageZapatilak"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnTxakolina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Txakolina"
+        app:layout_constraintBottom_toTopOf="@+id/imageAzenarioa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnZapatila"
+        app:layout_constraintTop_toBottomOf="@+id/imageTxakolina"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageYogurtak"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="555dp"
+        android:layout_marginEnd="278dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Yogurta" />
+
+    <ImageView
+        android:id="@+id/imageAzenarioa"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="555dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageTomateak"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Azenarioa" />
+
+    <ImageView
+        android:id="@+id/imageTomateak"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="555dp"
+        android:layout_marginEnd="145dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageYogurtak"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Tomateak" />
+
+    <Button
+        android:id="@+id/btnPiperrak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Piperrak"
+        app:layout_constraintBottom_toTopOf="@+id/imageArtoa"
+        app:layout_constraintEnd_toStartOf="@+id/btnDetergentea"
+        app:layout_constraintStart_toEndOf="@+id/btnErroxkilak"
+        app:layout_constraintTop_toBottomOf="@+id/imagePiperrak"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageZapatilak"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="405dp"
+        android:layout_marginEnd="145dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageAlfombra"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Zapatila" />
+
+    <ImageView
+        android:id="@+id/imageTxakolina"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="405dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageZapatilak"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Txakolina" />
+
+    <ImageView
+        android:id="@+id/imageAlfombra"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="405dp"
+        android:layout_marginEnd="278dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Alfonbra" />
+
+    <Button
+        android:id="@+id/btnYogurtak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="37dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Yogurtak"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnTomateak"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageYogurtak" />
+
+    <Button
+        android:id="@+id/btnAzenarioa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="37dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Azenarioa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnTomateak"
+        app:layout_constraintTop_toBottomOf="@+id/imageAzenarioa" />
+
+    <Button
+        android:id="@+id/btnTomateak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="37dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Tomateak"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAzenarioa"
+        app:layout_constraintStart_toEndOf="@+id/btnYogurtak"
+        app:layout_constraintTop_toBottomOf="@+id/imageTomateak" />
+
+    <ImageView
+        android:id="@+id/imageIndabak"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="278dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Indabak" />
+
+    <ImageView
+        android:id="@+id/imageMugikorrak"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageArtoa"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Mugikorra" />
+
+    <ImageView
+        android:id="@+id/imageArtoa"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="145dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageIndabak"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/Artoa" />
+
+    <Button
+        android:id="@+id/btnIndabak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Indabak"
+        app:layout_constraintBottom_toTopOf="@+id/imageAlfombra"
+        app:layout_constraintEnd_toStartOf="@+id/btnArtoa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageIndabak" />
+
+    <Button
+        android:id="@+id/btnArtoa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Artoa"
+        app:layout_constraintBottom_toTopOf="@+id/imageZapatilak"
+        app:layout_constraintEnd_toStartOf="@+id/btnMugikorrak"
+        app:layout_constraintStart_toEndOf="@+id/btnIndabak"
+        app:layout_constraintTop_toBottomOf="@+id/imageArtoa" />
+
+    <Button
+        android:id="@+id/btnMugikorrak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Mugikorra"
+        app:layout_constraintBottom_toTopOf="@+id/imageTxakolina"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnArtoa"
+        app:layout_constraintTop_toBottomOf="@+id/imageMugikorrak" />
+
+    <Button
+        android:id="@+id/btnDetergentea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#7CE3C5"
+        android:text="Detergentea"
+        app:layout_constraintBottom_toTopOf="@+id/imageMugikorrak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnPiperrak"
+        app:layout_constraintTop_toBottomOf="@+id/imageDetergentea"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/GalderaMerkatu"
+        android:layout_width="283dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="117dp"
+        android:fontFamily="sans-serif"
+        android:text="Zer produktu saltzen dira azokan?"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
