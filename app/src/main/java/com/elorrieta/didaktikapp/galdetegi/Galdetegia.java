@@ -71,7 +71,7 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
         if(clickedButton.getId()==R.id.ans_A && QuestionAnswer.choices[currentQuestionIndex][0]==QuestionAnswer.correctAnswers[currentQuestionIndex]){
 
                 selectedAnswer = clickedButton.getText().toString();
-            clickedButton.setBackgroundColor(Color.GREEN);
+                clickedButton.setBackgroundColor(Color.GREEN);
                 currentQuestionIndex++;
                 clickedButton.setBackgroundColor(Color.GREEN);
                 new AlertDialog.Builder(this)

@@ -14,59 +14,84 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/jai_alai"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:contentDescription="@string/todo" />
 
     <Button
         android:id="@+id/eskupilota"
-        android:layout_width="53dp"
-        android:layout_height="24dp"
-        android:text="Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="283dp"
+        android:text="@string/button"
         android:visibility="invisible"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="424dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/zesta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jaialai"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/zesta"
-        android:layout_width="55dp"
-        android:layout_height="27dp"
-        android:text="Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="280dp"
+        android:text="@string/button1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pala"
+        app:layout_constraintStart_toEndOf="@+id/eskupilota"
+        app:layout_constraintTop_toBottomOf="@+id/frontoia"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="424dp"
         tools:visibility="invisible" />
 
     <Button
         android:id="@+id/pala"
-        android:layout_width="48dp"
-        android:layout_height="26dp"
-        android:text="Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="95dp"
+        android:text="@string/button2"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/zesta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/zesta"
+        app:layout_constraintTop_toTopOf="@+id/zesta"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="268dp"
-        tools:layout_editor_absoluteY="425dp"
         tools:visibility="invisible" />
 
     <Button
         android:id="@+id/frontoia"
         android:layout_width="65dp"
-        android:layout_height="37dp"
-        android:text="Button"
+        android:layout_height="0dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginBottom="67dp"
+        android:text="@string/button3"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/zesta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.461"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="189dp"
-        tools:layout_editor_absoluteY="324dp"
         tools:visibility="invisible" />
 
     <Button
         android:id="@+id/jaialai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginTop="202dp"
+        android:layout_marginBottom="174dp"
+        android:text="@string/button4"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/eskupilota"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.295"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="209dp"
         tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

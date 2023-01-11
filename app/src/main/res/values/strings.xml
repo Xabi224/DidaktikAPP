@@ -8,5 +8,17 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="boton_play_pause">Play/pause Botoia</string>
     <string name="jolastu">Jolastu</string>
+    <string name="button">Button</string>
+    <string name="button1">Button</string>
+    <string name="button2">Button</string>
+    <string name="button3">Button</string>
+    <string name="button4">Button</string>
+    <string name="todo">TODO</string>
+
+    <!-- Zuhaitzak -->
+    <string name="artea">Artea</string>
+    <string name="pinua">Pinua</string>
+    <string name="ginkoa">Ginkoa</string>
+    <string name="haritza">Haritza</string>
 
 </resources>

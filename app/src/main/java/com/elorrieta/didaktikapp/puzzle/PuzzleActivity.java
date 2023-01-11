@@ -2,6 +2,7 @@ package com.elorrieta.didaktikapp.puzzle;
 
 import static java.lang.Math.abs;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -294,12 +295,24 @@ public class PuzzleActivity extends AppCompatActivity {
         if (isGameOver()) {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.kirby);
             mediaPlayer.start();
-            Toast.makeText(this, "You win!", Toast.LENGTH_LONG).show();
-            // volver al mapa
-            Intent intent = new Intent(this, MapsActivity.class);
-            startActivity(intent);
-            finish();
+            String passStatus;
+            passStatus = "";
+            passStatus = "Puzzlea";
+            new AlertDialog.Builder(this)
+                    .setTitle(passStatus)
+                    .setMessage("Zorionak, jokoa amaitu duzu!")
+                    .setPositiveButton("Jarraitu",(dialogInterface, i) -> endPuzzle() )
+                    .setCancelable(false)
+                    .show();
+
+
         }
+    }
+
+    public void endPuzzle() {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private boolean isGameOver() {
