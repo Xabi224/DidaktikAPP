@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Erroskilak" />
+        app:srcCompat="@drawable/erroskilak" />
 
     <ImageView
         android:id="@+id/imagePiperrak"
@@ -35,7 +35,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageErroskilak"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Piperrak" />
+        app:srcCompat="@drawable/piperrak" />
 
     <ImageView
         android:id="@+id/imageDetergentea"
@@ -50,7 +50,7 @@
         app:layout_constraintStart_toEndOf="@+id/imagePiperrak"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Detergentea" />
+        app:srcCompat="@drawable/detergentea" />
 
     <Button
         android:id="@+id/btnErroxkilak"
@@ -129,7 +129,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Yogurta" />
+        app:srcCompat="@drawable/yogurta" />
 
     <ImageView
         android:id="@+id/imageAzenarioa"
@@ -144,7 +144,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageTomateak"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Azenarioa" />
+        app:srcCompat="@drawable/azenarioa" />
 
     <ImageView
         android:id="@+id/imageTomateak"
@@ -159,7 +159,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageYogurtak"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Tomateak" />
+        app:srcCompat="@drawable/tomateak" />
 
     <Button
         android:id="@+id/btnPiperrak"
@@ -190,7 +190,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageAlfombra"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Zapatila" />
+        app:srcCompat="@drawable/zapatila" />
 
     <ImageView
         android:id="@+id/imageTxakolina"
@@ -205,7 +205,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageZapatilak"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Txakolina" />
+        app:srcCompat="@drawable/txakolina" />
 
     <ImageView
         android:id="@+id/imageAlfombra"
@@ -220,7 +220,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Alfonbra" />
+        app:srcCompat="@drawable/alfonbra" />
 
     <Button
         android:id="@+id/btnYogurtak"
@@ -280,7 +280,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Indabak" />
+        app:srcCompat="@drawable/indabak" />
 
     <ImageView
         android:id="@+id/imageMugikorrak"
@@ -295,7 +295,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageArtoa"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Mugikorra" />
+        app:srcCompat="@drawable/mugikorra" />
 
     <ImageView
         android:id="@+id/imageArtoa"
@@ -310,7 +310,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageIndabak"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/Artoa" />
+        app:srcCompat="@drawable/artoa" />
 
     <Button
         android:id="@+id/btnIndabak"

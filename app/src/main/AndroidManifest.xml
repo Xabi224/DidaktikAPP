@@ -31,6 +31,21 @@
         </activity>
 
         <activity
+            android:name=".lotu.GaldetegiaZuhaitza"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".lotu.Lotu"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
             android:name=".galdetegi.GaldetegiMain"
             android:exported="false">
             <meta-data
