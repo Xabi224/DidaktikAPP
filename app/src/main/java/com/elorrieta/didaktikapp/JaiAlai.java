@@ -39,9 +39,9 @@ public class JaiAlai extends AppCompatActivity {
        boton_eskupilota.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               int posicion;
+               int posicion1;
                if(eskupi != null && eskupi.isPlaying()) {
-                   posicion = eskupi.getCurrentPosition();
+                   posicion1 = eskupi.getCurrentPosition();
                    eskupi.pause();
                }else {
                    eskupi.start();
@@ -54,9 +54,9 @@ public class JaiAlai extends AppCompatActivity {
            public void onClick(View view) {
 
 
-               int posicion;
+               int posicion2;
                if(frontis != null && frontis.isPlaying()) {
-                   posicion = frontis.getCurrentPosition();
+                   posicion2 = frontis.getCurrentPosition();
                    frontis.pause();
                }else {
                    frontis.start();
@@ -68,9 +68,9 @@ public class JaiAlai extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               int posicion;
+               int posicion3;
                if(jai_alai != null && jai_alai.isPlaying()) {
-                   posicion = jai_alai.getCurrentPosition();
+                   posicion3 = jai_alai.getCurrentPosition();
                    jai_alai.pause();
                }else {
                    jai_alai.start();
@@ -82,9 +82,9 @@ public class JaiAlai extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               int posicion;
+               int posicion4;
                if(pala != null && pala.isPlaying()) {
-                   posicion = pala.getCurrentPosition();
+                   posicion4 = pala.getCurrentPosition();
                    pala.pause();
                }else {
                    pala.start();
@@ -96,9 +96,9 @@ public class JaiAlai extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               int posicion;
+               int posicion5;
                if(zesta != null && zesta.isPlaying()) {
-                   posicion = zesta.getCurrentPosition();
+                   posicion5 = zesta.getCurrentPosition();
                    zesta.pause();
                }else {
                    zesta.start();
