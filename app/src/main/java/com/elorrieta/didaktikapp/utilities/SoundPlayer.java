@@ -1,5 +1,6 @@
 package com.elorrieta.didaktikapp.utilities;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.view.View;
@@ -20,6 +21,15 @@ public class SoundPlayer {
 
     public SoundPlayer(byte[] audio, ImageButton playPauseButton, SeekBar progressBar) {
         this.mediaPlayer = createMediaPlayer(audio);
+        init(playPauseButton, progressBar);
+    }
+
+    public SoundPlayer(Context context, int resid, ImageButton playPauseButton, SeekBar progressBar) {
+        this.mediaPlayer = MediaPlayer.create(context, resid);
+        init(playPauseButton, progressBar);
+    }
+
+    private void init(ImageButton playPauseButton, SeekBar progressBar){
         this.playPauseButton = playPauseButton;
         this.progressBar = progressBar;
         progressBar.setMax(mediaPlayer.getDuration());
