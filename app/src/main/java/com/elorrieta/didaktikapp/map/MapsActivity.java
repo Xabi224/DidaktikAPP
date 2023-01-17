@@ -185,7 +185,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
-        if (!preferences.getBoolean("freeMode", false)) startLocationUpdates();
+        if (preferences.getBoolean("freeMode", true)) startFreeMode();
+        else stopFreeMode();
     }
 
     private void startLocationUpdates() {
