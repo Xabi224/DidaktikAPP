@@ -1,21 +1,16 @@
 package com.elorrieta.didaktikapp.utilities;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.KeyStore;
 
-//public class SoundPlayer extends LinearLayout {
 public class SoundPlayer {
 
     private final Handler handler = new Handler();
@@ -23,26 +18,8 @@ public class SoundPlayer {
     ImageButton playPauseButton;
     SeekBar progressBar;
 
-//    public SoundPlayer(Context context, AttributeSet attrs) {
-//        super(context, attrs);
-//        //https://stackoverflow.com/questions/12978298/custom-view-made-of-multiple-views
-//    }
-//
-//    public void setInputFile(byte[] audio) {
-//        this.mediaPlayer = createMediaPlayer(audio);
-//    }
-
     public SoundPlayer(byte[] audio, ImageButton playPauseButton, SeekBar progressBar) {
         this.mediaPlayer = createMediaPlayer(audio);
-        init(playPauseButton, progressBar);
-    }
-
-    public SoundPlayer(Context context, int resid, ImageButton playPauseButton, SeekBar progressBar) {
-        this.mediaPlayer = MediaPlayer.create(context, resid);
-        init(playPauseButton, progressBar);
-    }
-
-    private void init(ImageButton playPauseButton, SeekBar progressBar){
         this.playPauseButton = playPauseButton;
         this.progressBar = progressBar;
         progressBar.setMax(mediaPlayer.getDuration());
