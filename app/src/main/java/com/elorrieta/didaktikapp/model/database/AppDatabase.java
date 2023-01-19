@@ -13,7 +13,7 @@ import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 import com.elorrieta.didaktikapp.model.entities.Song;
 
-@Database(entities = {PlaceOfInterest.class, Game.class, Song.class}, version = 5)
+@Database(entities = {PlaceOfInterest.class, Game.class, Song.class}, version = 10)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
 
