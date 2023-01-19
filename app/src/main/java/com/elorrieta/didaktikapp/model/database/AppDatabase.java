@@ -8,10 +8,12 @@ import androidx.room.RoomDatabase;
 
 import com.elorrieta.didaktikapp.model.dao.GameDAO;
 import com.elorrieta.didaktikapp.model.dao.PlaceOfInterestDAO;
+import com.elorrieta.didaktikapp.model.dao.SongDAO;
 import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
+import com.elorrieta.didaktikapp.model.entities.Song;
 
-@Database(entities = {PlaceOfInterest.class, Game.class}, version = 4)
+@Database(entities = {PlaceOfInterest.class, Game.class, Song.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
 
@@ -31,4 +33,5 @@ public abstract class AppDatabase extends RoomDatabase {
     }
     public abstract PlaceOfInterestDAO placeOfInterestDao();
     public abstract GameDAO gameDao();
+    public abstract SongDAO songDao();
 }
