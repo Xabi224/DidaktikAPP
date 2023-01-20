@@ -34,17 +34,17 @@
 
     <Button
         android:id="@+id/btnErroxkilak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="119dp"
+        android:layout_height="52dp"
         android:layout_marginStart="1dp"
-        android:layout_marginBottom="111dp"
         android:backgroundTint="#7CE3C5"
         android:text="erroxkilak"
-        app:layout_constraintBottom_toTopOf="@+id/btnIndabak"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnPiperrak"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageErroskilak" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.269" />
 
     <Button
         android:id="@+id/btnAlfombra"
@@ -65,38 +65,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="107dp"
         android:backgroundTint="#7CE3C5"
         android:text="Zapatilak"
-        app:layout_constraintBottom_toTopOf="@+id/btnTomateak"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnTxakolina"
         app:layout_constraintStart_toEndOf="@+id/btnAlfombra"
-        app:layout_constraintTop_toBottomOf="@+id/btnArtoa"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.708"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnTxakolina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:backgroundTint="#7CE3C5"
         android:text="Txakolina"
-        app:layout_constraintBottom_toTopOf="@+id/imageAzenarioa"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnZapatila"
-        app:layout_constraintTop_toBottomOf="@+id/btnMugikorrak" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.708" />
 
     <ImageView
         android:id="@+id/imageAzenarioa"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAzenarioa"
+        android:layout_width="128dp"
+        android:layout_height="73dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/btnZapatila"
-        app:layout_constraintTop_toBottomOf="@+id/btnTxakolina"
+        app:layout_constraintHorizontal_bias="0.989"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.851"
         app:srcCompat="@drawable/azenarioa" />
 
     <Button
@@ -109,19 +109,20 @@
         app:layout_constraintBottom_toTopOf="@+id/imageArtoa"
         app:layout_constraintEnd_toStartOf="@+id/btnDetergentea"
         app:layout_constraintStart_toEndOf="@+id/btnErroxkilak"
-        app:layout_constraintTop_toBottomOf="@+id/imagePiperrak" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageAlfombra"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="121dp"
+        android:layout_height="71dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAlfombra"
-        app:layout_constraintEnd_toStartOf="@+id/imageArtoa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIndabak"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6"
         app:srcCompat="@drawable/alfonbra" />
 
     <Button
@@ -129,25 +130,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="37dp"
         android:backgroundTint="#7CE3C5"
         android:text="Yogurtak"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnTomateak"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAlfombra" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.945" />
 
     <Button
         android:id="@+id/btnAzenarioa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="37dp"
         android:backgroundTint="#7CE3C5"
         android:text="Azenarioa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnTomateak"
-        app:layout_constraintTop_toBottomOf="@+id/imageAzenarioa" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.945" />
 
     <Button
         android:id="@+id/btnTomateak"
@@ -160,19 +161,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnAzenarioa"
         app:layout_constraintStart_toEndOf="@+id/btnYogurtak"
-        app:layout_constraintTop_toBottomOf="@+id/btnZapatila" />
+        app:layout_constraintTop_toBottomOf="@+id/btnZapatila"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageArtoa"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="112dp"
+        android:layout_height="70dp"
         android:layout_marginStart="141dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnArtoa"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPiperrak"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.373"
         app:srcCompat="@drawable/artoa" />
 
     <Button
@@ -186,47 +188,47 @@
         app:layout_constraintBottom_toTopOf="@+id/imageAlfombra"
         app:layout_constraintEnd_toStartOf="@+id/btnArtoa"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnErroxkilak" />
+        app:layout_constraintTop_toBottomOf="@+id/btnErroxkilak"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnArtoa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="102dp"
         android:backgroundTint="#7CE3C5"
         android:text="Artoa"
-        app:layout_constraintBottom_toTopOf="@+id/btnZapatila"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnMugikorrak"
         app:layout_constraintStart_toEndOf="@+id/btnIndabak"
-        app:layout_constraintTop_toBottomOf="@+id/imageArtoa" />
+        app:layout_constraintTop_toBottomOf="@+id/imageArtoa"
+        app:layout_constraintVertical_bias="0.051" />
 
     <Button
         android:id="@+id/btnMugikorrak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="102dp"
         android:backgroundTint="#7CE3C5"
         android:text="Mugikorra"
-        app:layout_constraintBottom_toTopOf="@+id/btnTxakolina"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnArtoa"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.484"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnDetergentea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="186dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="16dp"
         android:backgroundTint="#7CE3C5"
         android:text="Detergentea"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnPiperrak"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.267"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -245,74 +247,93 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnMugikorrak"
+        android:layout_width="92dp"
+        android:layout_height="73dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageArtoa"
+        app:layout_constraintHorizontal_bias="0.899"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDetergentea"
+        app:layout_constraintVertical_bias="0.009"
         app:srcCompat="@drawable/mugikorra" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="114dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="69dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.037"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.373"
         app:srcCompat="@drawable/indabak"
-        tools:layout_editor_absoluteY="243dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="111dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="148dp"
+        android:layout_width="106dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="324dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.217"
         app:srcCompat="@drawable/zapatila"
-        tools:layout_editor_absoluteY="393dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="51dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="44dp"
+        android:layout_height="98dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.872"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.608"
         app:srcCompat="@drawable/txakolina"
-        tools:layout_editor_absoluteY="389dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
+        android:layout_width="85dp"
+        android:layout_height="91dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.901"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.112"
         app:srcCompat="@drawable/detergentea"
-        tools:layout_editor_absoluteY="54dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="120dp"
         android:layout_height="110dp"
-        android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.863"
         app:srcCompat="@drawable/tomateak"
-        tools:layout_editor_absoluteX="139dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView11"
         android:layout_width="88dp"
         android:layout_height="94dp"
-        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageAzenarioa"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.866"
         app:srcCompat="@drawable/yogurta"
-        tools:layout_editor_absoluteY="544dp"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

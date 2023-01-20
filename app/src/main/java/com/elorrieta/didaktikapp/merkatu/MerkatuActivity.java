@@ -9,14 +9,13 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.elorrieta.didaktikapp.R;
-import com.elorrieta.didaktikapp.lotu.GaldetegiaZuhaitza;
-import com.elorrieta.didaktikapp.lotu.Lotu;
+
 import com.elorrieta.didaktikapp.map.MapsActivity;
 
 public class MerkatuActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button alfonbra, erroskilak, piperrak, detergentea, indabak, artoa, mugikorra, zapatilak, txakolina, yogurta, tomateak, azenarioa;
-    boolean alfonbraB = false, erroskilakB = false, piperrakB = false, detergenteaB = false, indabakB = false, artoaB = false, mugikorraB = false, zapatilakB = false, txakolinaB = false, yogurtaB = false, tomateakB = false, azenarioaB = false;
+     int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +30,8 @@ public class MerkatuActivity extends AppCompatActivity implements View.OnClickLi
         mugikorra = findViewById(R.id.btnMugikorrak);
         zapatilak = findViewById(R.id.btnZapatila);
         txakolina = findViewById(R.id.btnTxakolina);
-        yogurta = findViewById(R.id.btnTomateak);
-        tomateak = findViewById(R.id.btnYogurtak);
+        yogurta = findViewById(R.id.btnYogurtak);
+        tomateak = findViewById(R.id.btnTomateak);
         azenarioa = findViewById(R.id.btnAzenarioa);
 
         alfonbra.setOnClickListener(this);
@@ -44,60 +43,75 @@ public class MerkatuActivity extends AppCompatActivity implements View.OnClickLi
         artoa.setOnClickListener(this);
         mugikorra.setOnClickListener(this);
         zapatilak.setOnClickListener(this);
+        azenarioa.setOnClickListener(this);
+        txakolina.setOnClickListener(this);
+        yogurta.setOnClickListener(this);
+        tomateak.setOnClickListener(this);
+
 
     }
     @Override
     public void onClick (View view){
 
-        Button clickedButton = (Button) view;
+
 
         if (alfonbra.isPressed()) {
-            alfonbra.setBackgroundColor(Color.GREEN);
-            alfonbraB = true;
+            desactivarBotonRojo(alfonbra);
+            count++;
         } else if (erroskilak.isPressed()) {
-            erroskilak.setBackgroundColor(Color.GREEN);
-            erroskilakB = true;
+            desactivarBotonVerde(erroskilak);
+            count++;
         } else if (piperrak.isPressed()) {
-            piperrak.setBackgroundColor(Color.GREEN);
-            piperrakB = true;
+            desactivarBotonVerde(piperrak);
+            count++;
         } else if (detergentea.isPressed()) {
-            detergentea.setBackgroundColor(Color.GREEN);
-            detergenteaB = true;
+            desactivarBotonRojo(detergentea);
+            count++;
         } else if (indabak.isPressed()) {
-            indabak.setBackgroundColor(Color.GREEN);
-            indabakB = true;
+            desactivarBotonVerde(indabak);
+            count++;
         } else if (artoa.isPressed()) {
-            artoa.setBackgroundColor(Color.GREEN);
-            artoaB = true;
+            desactivarBotonVerde(artoa);
+            count++;
         } else if (mugikorra.isPressed()) {
-            mugikorra.setBackgroundColor(Color.GREEN);
-            mugikorraB = true;
+            desactivarBotonRojo(mugikorra);
+            count++;
         } else if (zapatilak.isPressed()) {
-            zapatilak.setBackgroundColor(Color.GREEN);
-            zapatilakB = true;
+            desactivarBotonRojo(zapatilak);
+            count++;
         } else if (txakolina.isPressed()) {
-            txakolina.setBackgroundColor(Color.GREEN);
-            txakolinaB = true;
+            desactivarBotonVerde(txakolina);
+            count++;
         } else if (yogurta.isPressed()) {
-            yogurta.setBackgroundColor(Color.GREEN);
-            yogurtaB = true;
+            desactivarBotonRojo(yogurta);
+            count++;
         } else if (tomateak.isPressed()) {
-            tomateak.setBackgroundColor(Color.GREEN);
-            tomateakB = true;
+            desactivarBotonVerde(tomateak);
+            count++;
         } else if (azenarioa.isPressed()) {
-            azenarioa.setBackgroundColor(Color.GREEN);
-            azenarioaB = true;
+            desactivarBotonVerde(azenarioa);
+            count++;
         }
-        else if(alfonbraB==true && erroskilakB==true && piperrakB==true && detergenteaB==true && indabakB==true && artoaB==true && mugikorraB==true && zapatilakB==true && txakolinaB==true && yogurtaB==true && tomateakB==true && azenarioaB==true){
-            GalderaEgin();
+        if(count == 12){
+            galderaEgin();
 
         }
 }
-    public void GalderaEgin () {
+    public void galderaEgin () {
         // In startGame() method, create an Intent to launch StartGame Activity
         Intent intent = new Intent(MerkatuActivity.this, MapsActivity.class);
         startActivity(intent);
         // Finish Lotu
         finish();
+    }
+    public void desactivarBotonVerde(Button boton) {
+        boton.setEnabled(false);
+        boton.setBackgroundColor(Color.GREEN);
+        boton.setTextColor(Color.BLACK);
+    }
+    public void desactivarBotonRojo(Button boton) {
+        boton.setEnabled(false);
+        boton.setBackgroundColor(Color.RED);
+        boton.setTextColor(Color.BLACK);
     }
 }
