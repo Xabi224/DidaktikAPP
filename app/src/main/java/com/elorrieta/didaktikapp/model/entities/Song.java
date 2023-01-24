@@ -16,4 +16,7 @@ public class Song {
     public byte[] shortAudio;
 
     public byte[] longAudio;
+
+    public String band;
+
 }

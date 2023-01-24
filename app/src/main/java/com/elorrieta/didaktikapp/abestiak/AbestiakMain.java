@@ -1,31 +1,32 @@
 package com.elorrieta.didaktikapp.abestiak;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.CursorWindow;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.elorrieta.didaktikapp.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.elorrieta.didaktikapp.databinding.ActivityAbestiakMainBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
 import com.elorrieta.didaktikapp.model.entities.Song;
 import com.elorrieta.didaktikapp.utilities.SoundPlayer;
 import com.google.android.material.internal.TextWatcherAdapter;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class AbestiakMain extends AppCompatActivity {
@@ -64,6 +65,10 @@ public class AbestiakMain extends AppCompatActivity {
         for (String line : lines) {
             LinearLayout linearLayout = new LinearLayout(this);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.weight = 1.0f;
+            params.gravity = Gravity.CENTER;
+            linearLayout.setLayoutParams(params);
             // filtros para el edittext
             InputFilter[] filterArray = new InputFilter[2];
             filterArray[0] = new InputFilter.LengthFilter(1);
@@ -80,6 +85,7 @@ public class AbestiakMain extends AppCompatActivity {
                     EditText editText = new EditText(this);
                     editText.setFilters(filterArray);
                     editText.setId(View.generateViewId());
+                    editText.setSelectAllOnFocus(true);
                     // metodo que hace saltar de un edittext a otro al escribir una letra
                     editText.addTextChangedListener(new TextWatcherAdapter() {
                         @Override
@@ -118,9 +124,61 @@ public class AbestiakMain extends AppCompatActivity {
 
     private void checkLyrics(Song song) {
         String lyrics = viewsToString(views);
-        Toast.makeText(this, lyrics, Toast.LENGTH_SHORT).show();
         if (lyrics.equals(song.lyrics)) {
             soundPlayer = new SoundPlayer(song.longAudio, binding.playPauseButton, binding.seekBar);
+
+            //TODO: que funcione todo esto
+            // Abrimos un prompt para preguntar el grupo
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("zein taldek jotzen du abestia?");
+            alert.setCancelable(false);
+
+            LinearLayout layout = new LinearLayout(this);
+            layout.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.weight = 1.0f;
+            params.gravity = Gravity.CENTER;
+            layout.setLayoutParams(params);
+
+            Button button1 = new Button(this);
+            button1.setText("Gatibu");
+            button1.setOnClickListener(view -> {
+                if (song.band.equals("Gatibu")) {
+                    button1.setBackgroundColor(Color.GREEN);
+                    new AlertDialog.Builder(this)
+                            .setMessage("Asmatu duzu!")
+                            .setPositiveButton("Jarraitu", (dialogInterface, i) -> Toast.makeText(this, "", Toast.LENGTH_SHORT).show())
+                            .setCancelable(false)
+                            .show();
+//                    alert.setPositiveButton("Jarraitu", (dialogInterface, i) -> Toast.makeText(this, "", Toast.LENGTH_SHORT).show());
+//                    alert.setMessage("Orain abezti osoa entzun dezakezu");
+//                    alert.show();
+//                    dialog.dismiss();
+                } else {
+                    button1.setBackgroundColor(Color.RED);
+                }
+            });
+            layout.addView(button1);
+
+            Button button2 = new Button(this);
+            button2.setText("Ken zazpi");
+            button2.setOnClickListener(view -> {
+                if (song.band.equals("Ken zazpi")) {
+                    button2.setBackgroundColor(Color.GREEN);
+                    new AlertDialog.Builder(this)
+                            .setMessage("Asmatu duzu!")
+                            .setPositiveButton("Jarraitu", (dialogInterface, i) -> Toast.makeText(this, "", Toast.LENGTH_SHORT).show())
+                            .setCancelable(false)
+                            .show();
+                    alert.getContext();
+                } else {
+                    button2.setBackgroundColor(Color.RED);
+                }
+            });
+            layout.addView(button2);
+            alert.setView(layout);
+
+            alert.show();
         }
     }
 
