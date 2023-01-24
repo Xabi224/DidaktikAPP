@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.database.CursorWindow;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,56 +55,65 @@ public class AbestiakMain extends AppCompatActivity {
         binding.btnCheck.setOnClickListener(view -> checkLyrics(song));
     }
 
+    @SuppressLint("RestrictedApi")
     private LinkedList<LinearLayout> stringToViews(String lyrics) {
         LinkedList<LinearLayout> views = new LinkedList<>();
         String[] lines = lyrics.split("\r\n");
-        for (String line : lines) {
-            views.add(lineToView(line));
-        }
-        return views;
-    }
-
-    @SuppressLint("RestrictedApi")
-    private LinearLayout lineToView(String line) {
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        InputFilter[] filterArray = new InputFilter[2];
-        filterArray[0] = new InputFilter.LengthFilter(1);
-        filterArray[1] = new InputFilter.AllCaps();
-        String[] words = line.split("_");
-        // TODO: saltar de una linea a la siguiente tambien
         EditText previousEditText = null;
-        for (int i = 0; i < words.length; i++) {
-            TextView textView = new TextView(this);
-            textView.setText(words[i]);
-            linearLayout.addView(textView);
-            if (i < words.length - 1) {
-                EditText editText = new EditText(this);
-                editText.setFilters(filterArray);
-                editText.setId(View.generateViewId());
-                editText.addTextChangedListener(new TextWatcherAdapter() {
-                    @Override
-                    public void afterTextChanged(@NonNull Editable s) {
-                        if (s.length() == 1) {
-                            int nextFocus = editText.getNextFocusForwardId();
-                            if (nextFocus != View.NO_ID) {
-                                View next = editText.getRootView().findViewById(nextFocus);
-                                if (next != null) {
-                                    next.requestFocus();
+        // recorremos cada linea
+        for (String line : lines) {
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            // filtros para el edittext
+            InputFilter[] filterArray = new InputFilter[2];
+            filterArray[0] = new InputFilter.LengthFilter(1);
+            filterArray[1] = new InputFilter.AllCaps();
+
+            String[] columnArray = line.split("_");
+            //recorremos cada elemento de la linea
+            for (int column = 0; column < columnArray.length; column++) {
+                TextView textView = new TextView(this);
+                textView.setText(columnArray[column]);
+                linearLayout.addView(textView);
+                // si no es el ultimo elemento de la linea creamos un edittext
+                if (column < columnArray.length - 1) {
+                    EditText editText = new EditText(this);
+                    editText.setFilters(filterArray);
+                    editText.setId(View.generateViewId());
+                    // metodo que hace saltar de un edittext a otro al escribir una letra
+                    editText.addTextChangedListener(new TextWatcherAdapter() {
+                        @Override
+                        public void afterTextChanged(@NonNull Editable s) {
+                            if (s.length() == 1) {
+                                int nextFocus = editText.getNextFocusForwardId();
+                                if (nextFocus != View.NO_ID) {
+                                    View next = editText.getRootView().findViewById(nextFocus);
+                                    if (next != null) {
+                                        next.requestFocus();
+                                    }
+                                } else {
+                                    //cerrar el teclado
+                                    InputMethodManager imm = null;
+                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                                        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    }
+                                    assert imm != null;
+                                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                                 }
                             }
                         }
+                    });
+                    linearLayout.addView(editText);
+                    // hacemos que el edittext anterior salte al siguiente
+                    if (previousEditText != null) {
+                        previousEditText.setNextFocusForwardId(editText.getId());
                     }
-                });
-                linearLayout.addView(editText);
-                if (previousEditText != null) {
-                    previousEditText.setNextFocusForwardId(editText.getId());
+                    previousEditText = editText;
                 }
-                previousEditText = editText;
             }
-
+            views.add(linearLayout);
         }
-        return linearLayout;
+        return views;
     }
 
     private void checkLyrics(Song song) {
@@ -115,16 +126,18 @@ public class AbestiakMain extends AppCompatActivity {
 
     private String viewsToString(LinkedList<LinearLayout> views) {
         String lyrics = "";
-        for (int i = 0; i < views.size(); i++) {
-            LinearLayout view = views.get(i);
-            for (int j = 0; j < view.getChildCount(); j++) {
-                if (view.getChildAt(j) instanceof EditText) {
-                    lyrics += ((EditText) view.getChildAt(j)).getText().toString();
+
+        for (int line = 0; line < views.size(); line++) {
+            LinearLayout view = views.get(line);
+
+            for (int column = 0; column < view.getChildCount(); column++) {
+                if (view.getChildAt(column) instanceof EditText) {
+                    lyrics += ((EditText) view.getChildAt(column)).getText().toString();
                 } else {
-                    lyrics += ((TextView) view.getChildAt(j)).getText().toString();
+                    lyrics += ((TextView) view.getChildAt(column)).getText().toString();
                 }
             }
-            if (i < views.size() - 1) {
+            if (line < views.size() - 1) {
                 lyrics += "\r\n";
             }
         }
