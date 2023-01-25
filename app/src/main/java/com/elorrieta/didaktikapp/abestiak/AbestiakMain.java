@@ -2,6 +2,7 @@ package com.elorrieta.didaktikapp.abestiak;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.database.CursorWindow;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,12 +35,16 @@ public class AbestiakMain extends AppCompatActivity {
     private LinkedList<LinearLayout> views;
     private ActivityAbestiakMainBinding binding;
     private SoundPlayer soundPlayer;
+    private Song song;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAbestiakMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        int songNumber = getIntent().getIntExtra("song", 1);
+
         try {
             @SuppressLint("DiscouragedPrivateApi") Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
             field.setAccessible(true);
@@ -47,19 +52,19 @@ public class AbestiakMain extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Song song = AppDatabase.getDatabase(getApplicationContext()).songDao().findById(1);
-        views = stringToViews(song.fillLyrics);
+        song = AppDatabase.getDatabase(getApplicationContext()).songDao().findById(songNumber);
+        views = stringToViews();
         for (View view : views) {
             binding.containerView.addView(view);
         }
         soundPlayer = new SoundPlayer(song.shortAudio, binding.playPauseButton, binding.seekBar);
-        binding.btnCheck.setOnClickListener(view -> checkLyrics(song));
+        binding.btnCheck.setOnClickListener(view -> checkLyrics());
     }
 
     @SuppressLint("RestrictedApi")
-    private LinkedList<LinearLayout> stringToViews(String lyrics) {
+    private LinkedList<LinearLayout> stringToViews() {
         LinkedList<LinearLayout> views = new LinkedList<>();
-        String[] lines = lyrics.split("\r\n");
+        String[] lines = song.fillLyrics.split("\r\n");
         EditText previousEditText = null;
         // recorremos cada linea
         for (String line : lines) {
@@ -122,7 +127,7 @@ public class AbestiakMain extends AppCompatActivity {
         return views;
     }
 
-    private void checkLyrics(Song song) {
+    private void checkLyrics() {
         String lyrics = viewsToString(views);
         if (lyrics.equals(song.lyrics)) {
             soundPlayer = new SoundPlayer(song.longAudio, binding.playPauseButton, binding.seekBar);
@@ -132,6 +137,7 @@ public class AbestiakMain extends AppCompatActivity {
             alert.setTitle("zein taldek jotzen du abestia?");
             alert.setCancelable(false);
 
+            // Layout para el prompt
             LinearLayout layout = new LinearLayout(this);
             layout.setOrientation(LinearLayout.VERTICAL);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -144,17 +150,18 @@ public class AbestiakMain extends AppCompatActivity {
             Button button2 = new Button(this);
             layout.addView(button2);
             alert.setView(layout);
+            // Hay que abrir el dialogo antes de establecer los metodos de los botones para que luego puedan cerrarlo
             AlertDialog dialog = alert.show();
 
             button1.setText("Gatibu");
-            button1.setOnClickListener(view -> alertButtonFunction(song, button1, "Gatibu", dialog));
+            button1.setOnClickListener(view -> alertButtonFunction(button1, "Gatibu", dialog));
 
             button2.setText("Ken zazpi");
-            button2.setOnClickListener(view -> alertButtonFunction(song, button2, "Ken Zazpi", dialog));
+            button2.setOnClickListener(view -> alertButtonFunction(button2, "Ken Zazpi", dialog));
         }
     }
 
-    private void alertButtonFunction(Song song, Button button, String band, AlertDialog dialog){
+    private void alertButtonFunction(Button button, String band, AlertDialog dialog){
         if (song.band.equals(band)) {
             button.setBackgroundColor(Color.GREEN);
             new AlertDialog.Builder(AbestiakMain.this)
@@ -197,7 +204,11 @@ public class AbestiakMain extends AppCompatActivity {
     }
 
     private void nextSong(){
-        //TODO: cambiar de cancion
+        //TODO: probar
+        Intent intent = new Intent(this, AbestiakMain.class);
+        intent.putExtra("song", song.idSong + 1);
+        startActivity(intent);
+        finish();
     }
 
     private void endActivity(){
