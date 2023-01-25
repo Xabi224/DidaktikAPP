@@ -10,4 +10,8 @@ public interface SongDAO {
 
     @Query("SELECT * FROM Song WHERE idSong = :id")
     Song findById(int id);
+
+    @Query("SELECT COUNT(*) FROM Song")
+    int lastSong();
+
 }

@@ -127,7 +127,6 @@ public class AbestiakMain extends AppCompatActivity {
         if (lyrics.equals(song.lyrics)) {
             soundPlayer = new SoundPlayer(song.longAudio, binding.playPauseButton, binding.seekBar);
 
-            //TODO: que funcione todo esto
             // Abrimos un prompt para preguntar el grupo
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("zein taldek jotzen du abestia?");
@@ -141,44 +140,39 @@ public class AbestiakMain extends AppCompatActivity {
             layout.setLayoutParams(params);
 
             Button button1 = new Button(this);
-            button1.setText("Gatibu");
-            button1.setOnClickListener(view -> {
-                if (song.band.equals("Gatibu")) {
-                    button1.setBackgroundColor(Color.GREEN);
-                    new AlertDialog.Builder(this)
-                            .setMessage("Asmatu duzu!")
-                            .setPositiveButton("Jarraitu", (dialogInterface, i) -> Toast.makeText(this, "", Toast.LENGTH_SHORT).show())
-                            .setCancelable(false)
-                            .show();
-//                    alert.setPositiveButton("Jarraitu", (dialogInterface, i) -> Toast.makeText(this, "", Toast.LENGTH_SHORT).show());
-//                    alert.setMessage("Orain abezti osoa entzun dezakezu");
-//                    alert.show();
-//                    dialog.dismiss();
-                } else {
-                    button1.setBackgroundColor(Color.RED);
-                }
-            });
             layout.addView(button1);
-
             Button button2 = new Button(this);
-            button2.setText("Ken zazpi");
-            button2.setOnClickListener(view -> {
-                if (song.band.equals("Ken zazpi")) {
-                    button2.setBackgroundColor(Color.GREEN);
-                    new AlertDialog.Builder(this)
-                            .setMessage("Asmatu duzu!")
-                            .setPositiveButton("Jarraitu", (dialogInterface, i) -> Toast.makeText(this, "", Toast.LENGTH_SHORT).show())
-                            .setCancelable(false)
-                            .show();
-                    alert.getContext();
-                } else {
-                    button2.setBackgroundColor(Color.RED);
-                }
-            });
             layout.addView(button2);
             alert.setView(layout);
+            AlertDialog dialog = alert.show();
 
-            alert.show();
+            button1.setText("Gatibu");
+            button1.setOnClickListener(view -> alertButtonFunction(song, button1, "Gatibu", dialog));
+
+            button2.setText("Ken zazpi");
+            button2.setOnClickListener(view -> alertButtonFunction(song, button2, "Ken Zazpi", dialog));
+        }
+    }
+
+    private void alertButtonFunction(Song song, Button button, String band, AlertDialog dialog){
+        if (song.band.equals(band)) {
+            button.setBackgroundColor(Color.GREEN);
+            new AlertDialog.Builder(AbestiakMain.this)
+                    .setMessage("Asmatu duzu! Orain abesti osoa entzun dezakezu")
+                    .setPositiveButton("Jarraitu", (dialogInterface, i) -> dialogInterface.dismiss())
+                    .setCancelable(false)
+                    .show();
+            dialog.dismiss();
+            int lastSong = AppDatabase.getDatabase(getApplicationContext()).songDao().lastSong();
+            if (song.idSong < lastSong){
+                binding.btnCheck.setText("Hurrengo abestia");
+                binding.btnCheck.setOnClickListener(view -> nextSong());
+            } else {
+                binding.btnCheck.setText("Bueltatu mapara");
+                binding.btnCheck.setOnClickListener(view -> endActivity());
+            }
+        } else {
+            button.setBackgroundColor(Color.RED);
         }
     }
 
@@ -200,6 +194,15 @@ public class AbestiakMain extends AppCompatActivity {
             }
         }
         return lyrics;
+    }
+
+    private void nextSong(){
+        //TODO: cambiar de cancion
+    }
+
+    private void endActivity(){
+        //TODO: terminar la actividad y actualizar la base de datos
+        finish();
     }
 
     @Override
