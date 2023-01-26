@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.CursorWindow;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,11 +63,10 @@ public class AbestiakMain extends AppCompatActivity {
         binding.btnCheck.setOnClickListener(view -> checkLyrics());
     }
 
-    @SuppressLint("RestrictedApi")
     private LinkedList<LinearLayout> stringToViews() {
         LinkedList<LinearLayout> views = new LinkedList<>();
         String[] lines = song.fillLyrics.split("\r\n");
-        EditText previousEditText = null;
+        EditText editText = null;
         // recorremos cada linea
         for (String line : lines) {
             LinearLayout linearLayout = new LinearLayout(this);
@@ -74,57 +75,84 @@ public class AbestiakMain extends AppCompatActivity {
             params.weight = 1.0f;
             params.gravity = Gravity.CENTER;
             linearLayout.setLayoutParams(params);
-            // filtros para el edittext
-            InputFilter[] filterArray = new InputFilter[2];
-            filterArray[0] = new InputFilter.LengthFilter(1);
-            filterArray[1] = new InputFilter.AllCaps();
 
             String[] columnArray = line.split("_");
-            //recorremos cada elemento de la linea
+            //recorremos cada elemento de la linea rellenando los espacios con edittext
             for (int column = 0; column < columnArray.length; column++) {
-                TextView textView = new TextView(this);
-                textView.setText(columnArray[column]);
-                linearLayout.addView(textView);
-                // si no es el ultimo elemento de la linea creamos un edittext
+                    TextView textView = new TextView(this);
+                    textView.setText(columnArray[column]);
+                    linearLayout.addView(textView);
+
+                // si aun quedan espacios por rellenar creamos un edittext
                 if (column < columnArray.length - 1) {
-                    EditText editText = new EditText(this);
-                    editText.setFilters(filterArray);
-                    editText.setId(View.generateViewId());
-                    editText.setSelectAllOnFocus(true);
-                    // metodo que hace saltar de un edittext a otro al escribir una letra
-                    editText.addTextChangedListener(new TextWatcherAdapter() {
-                        @Override
-                        public void afterTextChanged(@NonNull Editable s) {
-                            if (s.length() == 1) {
-                                int nextFocus = editText.getNextFocusForwardId();
-                                if (nextFocus != View.NO_ID) {
-                                    View next = editText.getRootView().findViewById(nextFocus);
-                                    if (next != null) {
-                                        next.requestFocus();
-                                    }
-                                } else {
-                                    //cerrar el teclado
-                                    InputMethodManager imm = null;
-                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                                        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                                    }
-                                    assert imm != null;
-                                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                                }
-                            }
-                        }
-                    });
+                    editText = chainEditText(editText);
                     linearLayout.addView(editText);
-                    // hacemos que el edittext anterior salte al siguiente
-                    if (previousEditText != null) {
-                        previousEditText.setNextFocusForwardId(editText.getId());
-                    }
-                    previousEditText = editText;
                 }
             }
+
+            int fillSpacesAtEnd = countCharsAtEnd(line, '_');
+            // rellenamos los espacios al final
+            for (int i = 0; i < fillSpacesAtEnd; i++) {
+                editText = chainEditText(editText);
+                linearLayout.addView(editText);
+            }
+
             views.add(linearLayout);
         }
         return views;
+    }
+
+    private int countCharsAtEnd(String line, char c) {
+        int count = 0;
+        for (int i = line.length() - 1; i >= 0; i--) {
+            if (line.charAt(i) == c) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+
+    @SuppressLint("RestrictedApi")
+    private EditText chainEditText(EditText previous){
+        // filtros para el edittext
+        InputFilter[] filterArray = new InputFilter[2];
+        filterArray[0] = new InputFilter.LengthFilter(1);
+        filterArray[1] = new InputFilter.AllCaps();
+
+        EditText editText = new EditText(this);
+        editText.setFilters(filterArray);
+        editText.setId(View.generateViewId());
+        editText.setSelectAllOnFocus(true);
+        // metodo que hace saltar de un edittext a otro al escribir una letra
+        editText.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(@NonNull Editable s) {
+                if (s.length() == 1) {
+                    int nextFocus = editText.getNextFocusForwardId();
+                    if (nextFocus != View.NO_ID) {
+                        View next = editText.getRootView().findViewById(nextFocus);
+                        if (next != null) {
+                            next.requestFocus();
+                        }
+                    } else {
+                        //cerrar el teclado
+                        InputMethodManager imm = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                            imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        }
+                        assert imm != null;
+                        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    }
+                }
+            }
+        });
+        // hacemos que el edittext anterior salte al siguiente
+        if (previous != null) {
+            previous.setNextFocusForwardId(editText.getId());
+        }
+        return editText;
     }
 
     private void checkLyrics() {
@@ -161,7 +189,7 @@ public class AbestiakMain extends AppCompatActivity {
         }
     }
 
-    private void alertButtonFunction(Button button, String band, AlertDialog dialog){
+    private void alertButtonFunction(Button button, String band, AlertDialog dialog) {
         if (song.band.equals(band)) {
             button.setBackgroundColor(Color.GREEN);
             new AlertDialog.Builder(AbestiakMain.this)
@@ -171,7 +199,7 @@ public class AbestiakMain extends AppCompatActivity {
                     .show();
             dialog.dismiss();
             int lastSong = AppDatabase.getDatabase(getApplicationContext()).songDao().lastSong();
-            if (song.idSong < lastSong){
+            if (song.idSong < lastSong) {
                 binding.btnCheck.setText("Hurrengo abestia");
                 binding.btnCheck.setOnClickListener(view -> nextSong());
             } else {
@@ -203,7 +231,7 @@ public class AbestiakMain extends AppCompatActivity {
         return lyrics;
     }
 
-    private void nextSong(){
+    private void nextSong() {
         //TODO: probar
         Intent intent = new Intent(this, AbestiakMain.class);
         intent.putExtra("song", song.idSong + 1);
@@ -211,7 +239,7 @@ public class AbestiakMain extends AppCompatActivity {
         finish();
     }
 
-    private void endActivity(){
+    private void endActivity() {
         //TODO: terminar la actividad y actualizar la base de datos
         finish();
     }
