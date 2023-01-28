@@ -84,11 +84,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
-                Location lastLocation = locationResult.getLastLocation();
-                assert lastLocation != null;
-                currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation));
-                checkDistanceWithMarkers();
+                if (!preferences.getBoolean("freeMode", true)) {
+                    Location lastLocation = locationResult.getLastLocation();
+                    assert lastLocation != null;
+                    currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(currentLocation));
+                    checkDistanceWithMarkers();
+                }
             }
         };
 
@@ -185,9 +187,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
-        if (mMap == null) return;
-        if (preferences.getBoolean("freeMode", true)) startFreeMode();
-        else stopFreeMode();
+        startLocationUpdates();
     }
 
     private void startLocationUpdates() {
