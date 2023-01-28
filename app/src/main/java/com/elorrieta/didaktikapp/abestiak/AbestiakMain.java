@@ -139,9 +139,7 @@ public class AbestiakMain extends AppCompatActivity {
                     } else {
                         //cerrar el teclado
                         InputMethodManager imm = null;
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                            imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        }
+                        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         assert imm != null;
                         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                     }
@@ -203,7 +201,7 @@ public class AbestiakMain extends AppCompatActivity {
                 binding.btnCheck.setText("Hurrengo abestia");
                 binding.btnCheck.setOnClickListener(view -> nextSong());
             } else {
-                binding.btnCheck.setText("Bueltatu mapara");
+                binding.btnCheck.setText("Mapara bueltatu");
                 binding.btnCheck.setOnClickListener(view -> endActivity());
             }
         } else {
