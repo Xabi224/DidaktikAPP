@@ -36,7 +36,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         ImageView imagen = findViewById(R.id.imageView);
-        // ejemplo para cuando lo cojamos de la base de datos
+
         imagen.setOnClickListener(view -> {
             Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
             startActivity(intent);

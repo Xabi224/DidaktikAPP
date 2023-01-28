@@ -23,7 +23,6 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
     Button ansA, ansB, ansC;
 
 
-    int score=0;
     int totalQuestion = QuestionAnswer.question.length;
     int currentQuestionIndex = 0;
     String selectedAnswer = "";
@@ -40,22 +39,12 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
         ansB = findViewById(R.id.ans_B);
         ansC = findViewById(R.id.ans_C);
 
-
-
         ansA.setOnClickListener(this);
         ansB.setOnClickListener(this);
         ansC.setOnClickListener(this);
 
-
-
-
         totalQuestionsTextView.setText("Total questions : "+totalQuestion);
-
         loadNewQuestion();
-
-
-
-
     }
 
     @Override
@@ -68,7 +57,7 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
 
         Button clickedButton = (Button) view;
 
-        if(clickedButton.getId()==R.id.ans_A && QuestionAnswer.choices[currentQuestionIndex][0]==QuestionAnswer.correctAnswers[currentQuestionIndex]){
+        if(clickedButton.getId()==R.id.ans_A && QuestionAnswer.choices[currentQuestionIndex][0].equals(QuestionAnswer.correctAnswers[currentQuestionIndex])){
 
                 selectedAnswer = clickedButton.getText().toString();
                 clickedButton.setBackgroundColor(Color.GREEN);
@@ -82,7 +71,7 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
                         .show();
 
             }
-       else if (clickedButton.getId()==R.id.ans_B && QuestionAnswer.choices[currentQuestionIndex][1]==QuestionAnswer.correctAnswers[currentQuestionIndex]){
+       else if (clickedButton.getId()==R.id.ans_B && QuestionAnswer.choices[currentQuestionIndex][1].equals(QuestionAnswer.correctAnswers[currentQuestionIndex])){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -96,7 +85,7 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
                     .show();
 
         }
-       else if(clickedButton.getId()==R.id.ans_C && QuestionAnswer.choices[currentQuestionIndex][2]==QuestionAnswer.correctAnswers[currentQuestionIndex]){
+       else if(clickedButton.getId()==R.id.ans_C && QuestionAnswer.choices[currentQuestionIndex][2].equals(QuestionAnswer.correctAnswers[currentQuestionIndex])){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -143,7 +132,6 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
 
     void finishQuiz(){
         String passStatus;
-        passStatus = "";
         passStatus = "Zorionak";
 
         new AlertDialog.Builder(this)

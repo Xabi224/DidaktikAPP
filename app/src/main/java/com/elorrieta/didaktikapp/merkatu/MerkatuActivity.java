@@ -1,5 +1,6 @@
 package com.elorrieta.didaktikapp.merkatu;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.elorrieta.didaktikapp.R;
 
 import com.elorrieta.didaktikapp.map.MapsActivity;
+import com.elorrieta.didaktikapp.model.database.AppDatabase;
 
 public class MerkatuActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button alfonbra, erroskilak, piperrak, detergentea, indabak, artoa, mugikorra, zapatilak, txakolina, yogurta, tomateak, azenarioa;
-     int count = 0;
+    int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,14 +53,12 @@ public class MerkatuActivity extends AppCompatActivity implements View.OnClickLi
 
 
     }
+
     @Override
-    public void onClick (View view){
-
-
+    public void onClick(View view) {
 
         if (alfonbra.isPressed()) {
             desactivarBotonRojo(alfonbra);
-            count++;
         } else if (erroskilak.isPressed()) {
             desactivarBotonVerde(erroskilak);
             count++;
@@ -66,7 +67,6 @@ public class MerkatuActivity extends AppCompatActivity implements View.OnClickLi
             count++;
         } else if (detergentea.isPressed()) {
             desactivarBotonRojo(detergentea);
-            count++;
         } else if (indabak.isPressed()) {
             desactivarBotonVerde(indabak);
             count++;
@@ -75,16 +75,13 @@ public class MerkatuActivity extends AppCompatActivity implements View.OnClickLi
             count++;
         } else if (mugikorra.isPressed()) {
             desactivarBotonRojo(mugikorra);
-            count++;
         } else if (zapatilak.isPressed()) {
             desactivarBotonRojo(zapatilak);
-            count++;
         } else if (txakolina.isPressed()) {
             desactivarBotonVerde(txakolina);
             count++;
         } else if (yogurta.isPressed()) {
             desactivarBotonRojo(yogurta);
-            count++;
         } else if (tomateak.isPressed()) {
             desactivarBotonVerde(tomateak);
             count++;
@@ -92,23 +89,27 @@ public class MerkatuActivity extends AppCompatActivity implements View.OnClickLi
             desactivarBotonVerde(azenarioa);
             count++;
         }
-        if(count == 12){
-            galderaEgin();
-
+        if (count == 7) {
+            new AlertDialog.Builder(this)
+                    .setMessage("Zorionak, jokoa amaitu duzu!")
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.mapara_bueltatu, (dialog, which) -> endActivity())
+                    .show();
         }
-}
-    public void galderaEgin () {
-        // In startGame() method, create an Intent to launch StartGame Activity
-        Intent intent = new Intent(MerkatuActivity.this, MapsActivity.class);
-        startActivity(intent);
-        // Finish Lotu
+    }
+
+    private void endActivity() {
+        int gameId = AppDatabase.getDatabase(getApplicationContext()).gameDao().findIdByClass(this.getClass().getName());
+        AppDatabase.getDatabase(getApplicationContext()).gameRecordDao().addCompletion(gameId);
         finish();
     }
+
     public void desactivarBotonVerde(Button boton) {
         boton.setEnabled(false);
         boton.setBackgroundColor(Color.GREEN);
         boton.setTextColor(Color.BLACK);
     }
+
     public void desactivarBotonRojo(Button boton) {
         boton.setEnabled(false);
         boton.setBackgroundColor(Color.RED);

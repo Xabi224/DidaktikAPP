@@ -3,12 +3,10 @@ package com.elorrieta.didaktikapp.puzzle;
 import static java.lang.Math.abs;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -17,7 +15,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -26,10 +23,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.elorrieta.didaktikapp.R;
-import com.elorrieta.didaktikapp.map.MapsActivity;
-
+import com.elorrieta.didaktikapp.galdetegi.GaldetegiMain;
+import com.elorrieta.didaktikapp.model.database.AppDatabase;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -296,7 +292,6 @@ public class PuzzleActivity extends AppCompatActivity {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.kirby);
             mediaPlayer.start();
             String passStatus;
-            passStatus = "";
             passStatus = "Puzzlea";
             new AlertDialog.Builder(this)
                     .setTitle(passStatus)
@@ -310,8 +305,8 @@ public class PuzzleActivity extends AppCompatActivity {
     }
 
     public void endPuzzle() {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
+        int gameId = AppDatabase.getDatabase(getApplicationContext()).gameDao().findIdByClass(GaldetegiMain.class.getName());
+        AppDatabase.getDatabase(getApplicationContext()).gameRecordDao().addCompletion(gameId);
         finish();
     }
 

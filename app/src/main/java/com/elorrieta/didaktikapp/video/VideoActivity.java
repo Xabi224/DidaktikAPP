@@ -1,13 +1,17 @@
 package com.elorrieta.didaktikapp.video;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.elorrieta.didaktikapp.R;
+import com.elorrieta.didaktikapp.map.MapsActivity;
+import com.elorrieta.didaktikapp.model.database.AppDatabase;
 
 public class VideoActivity extends AppCompatActivity {
 
@@ -27,5 +31,14 @@ public class VideoActivity extends AppCompatActivity {
         videoView.setVideoURI(uri);
         videoView.requestFocus();
         videoView.start();
+
+        Button btn = findViewById(R.id.btnBack);
+        btn.setOnClickListener(v -> endActivity());
+    }
+
+    private void endActivity() {
+        int gameId = AppDatabase.getDatabase(getApplicationContext()).gameDao().findIdByClass(this.getClass().getName());
+        AppDatabase.getDatabase(getApplicationContext()).gameRecordDao().addCompletion(gameId);
+        finish();
     }
 }

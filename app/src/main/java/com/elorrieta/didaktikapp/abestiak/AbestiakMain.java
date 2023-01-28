@@ -23,6 +23,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.elorrieta.didaktikapp.R;
 import com.elorrieta.didaktikapp.databinding.ActivityAbestiakMainBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
 import com.elorrieta.didaktikapp.model.entities.Song;
@@ -138,9 +139,7 @@ public class AbestiakMain extends AppCompatActivity {
                         }
                     } else {
                         //cerrar el teclado
-                        InputMethodManager imm = null;
-                        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        assert imm != null;
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                     }
                 }
@@ -201,7 +200,7 @@ public class AbestiakMain extends AppCompatActivity {
                 binding.btnCheck.setText("Hurrengo abestia");
                 binding.btnCheck.setOnClickListener(view -> nextSong());
             } else {
-                binding.btnCheck.setText("Mapara bueltatu");
+                binding.btnCheck.setText(R.string.mapara_bueltatu);
                 binding.btnCheck.setOnClickListener(view -> endActivity());
             }
         } else {
@@ -230,7 +229,6 @@ public class AbestiakMain extends AppCompatActivity {
     }
 
     private void nextSong() {
-        //TODO: probar
         Intent intent = new Intent(this, AbestiakMain.class);
         intent.putExtra("song", song.idSong + 1);
         startActivity(intent);
@@ -238,7 +236,8 @@ public class AbestiakMain extends AppCompatActivity {
     }
 
     private void endActivity() {
-        //TODO: terminar la actividad y actualizar la base de datos
+        int gameId = AppDatabase.getDatabase(getApplicationContext()).gameDao().findIdByClass(this.getClass().getName());
+        AppDatabase.getDatabase(getApplicationContext()).gameRecordDao().addCompletion(gameId);
         finish();
     }
 

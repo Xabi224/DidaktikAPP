@@ -19,9 +19,10 @@ import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 import com.elorrieta.didaktikapp.model.entities.Song;
 
 @Database(entities = {PlaceOfInterest.class, Game.class, Song.class, GameRecord.class},
-        version = 12,
+        version = 13,
         autoMigrations = {
-                @AutoMigration(from = 11, to = 12)
+                @AutoMigration(from = 11, to = 12),
+                @AutoMigration(from = 12, to = 13)
         })
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {

@@ -31,4 +31,7 @@ public interface GameDAO {
     @Delete
     void delete(Game game);
 
+    @Query("SELECT idGame FROM Game WHERE gameClass = :gameClass")
+    int findIdByClass(String gameClass);
+
 }

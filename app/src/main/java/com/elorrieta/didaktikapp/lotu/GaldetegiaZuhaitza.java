@@ -2,7 +2,6 @@ package com.elorrieta.didaktikapp.lotu;
 
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.elorrieta.didaktikapp.R;
-import com.elorrieta.didaktikapp.map.MapsActivity;
+import com.elorrieta.didaktikapp.model.database.AppDatabase;
 
 
 public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClickListener {
@@ -63,7 +62,7 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
 
         Button clickedButton = (Button) view;
 
-        if(clickedButton.getId()==R.id.ans_A && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][0]==ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex]){
+        if(clickedButton.getId()==R.id.ans_A && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][0].equals(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex])){
 
                 selectedAnswer = clickedButton.getText().toString();
                 clickedButton.setBackgroundColor(Color.GREEN);
@@ -77,7 +76,7 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
                         .show();
 
             }
-       else if (clickedButton.getId()==R.id.ans_B && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][1]==ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex]){
+       else if (clickedButton.getId()==R.id.ans_B && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][1].equals(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex])){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -91,7 +90,7 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
                     .show();
 
         }
-       else if(clickedButton.getId()==R.id.ans_C && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][2]==ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex]){
+       else if(clickedButton.getId()==R.id.ans_C && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][2].equals(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex])){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -105,7 +104,7 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
                     .show();
 
         }
-        else if(clickedButton.getId()==R.id.ans_D && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][3]==ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex]){
+        else if(clickedButton.getId()==R.id.ans_D && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][3].equals(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex])){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -154,7 +153,6 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
 
     void finishQuiz(){
         String passStatus;
-        passStatus = "";
         passStatus = "Zorionak";
 
         new AlertDialog.Builder(this)
@@ -166,9 +164,9 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
     }
 
     void endQuiz(){
-        Intent intent = new Intent(GaldetegiaZuhaitza.this, MapsActivity.class);
-       startActivity(intent);
-       finish();
+        int gameId = AppDatabase.getDatabase(getApplicationContext()).gameDao().findIdByClass(Lotu.class.getName());
+        AppDatabase.getDatabase(getApplicationContext()).gameRecordDao().addCompletion(gameId);
+        finish();
     }
 
 }
