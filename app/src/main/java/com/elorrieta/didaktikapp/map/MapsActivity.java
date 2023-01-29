@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.elorrieta.didaktikapp.DescriptionActivity;
 import com.elorrieta.didaktikapp.R;
+import com.elorrieta.didaktikapp.records.RecordActivity;
 import com.elorrieta.didaktikapp.databinding.ActivityMapsBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
@@ -53,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private final HashMap<String, PlaceOfInterest> placesMap = new HashMap<>();
     private Button navigateButton;
+    private int clicksUntilRecord = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } else {
                 promptFreeMode();
             }
+        });
+
+        mMap.setOnMyLocationButtonClickListener(() -> {
+            if (clicksUntilRecord > 0) {
+                clicksUntilRecord--;
+            } else {
+                Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
+                startActivity(intent);
+            }
+            return false;
         });
 
         // Añadimos los marcadores
@@ -187,6 +199,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
+        clicksUntilRecord = 5;
         startLocationUpdates();
     }
 

@@ -18,4 +18,5 @@ public class GameAndRecord {
         this.game = game;
         this.gameRecord = gameRecord;
     }
+
 }

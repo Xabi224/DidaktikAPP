@@ -6,7 +6,9 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.elorrieta.didaktikapp.model.entities.GameAndRecord;
 import com.elorrieta.didaktikapp.model.entities.GameRecord;
+import com.elorrieta.didaktikapp.model.pojo.GameRecordPOJO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +28,9 @@ public abstract class GameRecordDAO {
     @Query("SELECT * FROM GameRecord")
     public abstract List<GameRecord> getAll();
 
+    @Query("SELECT IdGame, Date, Name, Completions FROM GameRecord NATURAL JOIN Game NATURAL JOIN PlaceOfInterest")
+    public abstract List<GameRecordPOJO> getAllGamesAndRecords();
+
     @Insert
     public abstract void insertAll(GameRecord... gameRecords);
 
@@ -35,8 +40,9 @@ public abstract class GameRecordDAO {
     @Delete
     public abstract void delete(GameRecord gameRecord);
 
-    @Query("DELETE FROM GameRecord WHERE date = :date")
-    public abstract void deleteByDate(LocalDate date);
+    @Query("DELETE FROM GameRecord")
+    public abstract void deleteAll();
+
 
     public void addCompletion(int idGame){
         GameRecord gameRecord = findByGameAndDate(idGame, LocalDate.now());
