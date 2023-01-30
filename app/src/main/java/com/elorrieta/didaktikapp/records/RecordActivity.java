@@ -38,10 +38,14 @@ public class RecordActivity extends AppCompatActivity {
                 })
                 .show());
 
+        // funcion del boton para borrar todos los registros
         binding.btnBack.setOnClickListener(v -> finish());
-        binding.btnDeleteAll.setOnClickListener(v -> {
-            AppDatabase.getDatabase(this).gameRecordDao().deleteAll();
-            adapter.clear();
-        });
+        binding.btnDeleteAll.setOnClickListener(v -> new AlertDialog.Builder(this)
+                .setMessage("Erregistro guztiak ezabatu nahi dituzu?")
+                .setPositiveButton(R.string.mapara_bueltatu, (dialog, which) -> {
+                    AppDatabase.getDatabase(this).gameRecordDao().deleteAll();
+                    adapter.clear();
+                })
+                .show());
     }
 }
