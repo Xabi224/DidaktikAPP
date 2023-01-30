@@ -30,22 +30,24 @@ public class RecordActivity extends AppCompatActivity {
         // funcion al hacer click que borra el registro seleccionado
         list.setOnItemClickListener((parent, view, position, id) -> new AlertDialog.Builder(this)
                 .setMessage("Erregistroa ezabatu nahi duzu?")
-                .setPositiveButton(R.string.mapara_bueltatu, (dialog, which) -> {
+                .setPositiveButton("Bai", (dialog, which) -> {
                     GameRecordPOJO recordPOJO = (GameRecordPOJO) parent.getItemAtPosition(position);
                     GameRecord gameRecord = new GameRecord(recordPOJO.getDate(), recordPOJO.getIdGame(), recordPOJO.getCompletions());
                     AppDatabase.getDatabase(this).gameRecordDao().delete(gameRecord);
                     adapter.remove(recordPOJO);
                 })
+                .setNegativeButton("Ez", null)
                 .show());
 
         // funcion del boton para borrar todos los registros
         binding.btnBack.setOnClickListener(v -> finish());
         binding.btnDeleteAll.setOnClickListener(v -> new AlertDialog.Builder(this)
                 .setMessage("Erregistro guztiak ezabatu nahi dituzu?")
-                .setPositiveButton(R.string.mapara_bueltatu, (dialog, which) -> {
+                .setPositiveButton("Bai", (dialog, which) -> {
                     AppDatabase.getDatabase(this).gameRecordDao().deleteAll();
                     adapter.clear();
                 })
+                .setNegativeButton("Ez", null)
                 .show());
     }
 }
