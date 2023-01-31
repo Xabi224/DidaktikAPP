@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_urdaibai_scene"
+    tools:context=".urdaibai.Urdaibai">
+
+    <ImageView
+        android:id="@+id/imageUrdaibai"
+        android:layout_width="545dp"
+        android:layout_height="675dp"
+        android:layout_marginBottom="120dp"
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/urdaibai"
+        android:contentDescription="TODO" />
+
+    <ImageView
+        android:id="@+id/imageCafe"
+        android:layout_width="55dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="88dp"
+        android:rotation="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cafe"
+        android:contentDescription="TODO" />
+
+    <ImageView
+        android:id="@+id/imageKristal_botila"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="300dp"
+        android:rotation="70"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/kristal_botilak"
+        android:contentDescription="TODO" />
+
+    <ImageView
+        android:id="@+id/imageLata"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="632dp"
+        android:rotation="98"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/lata"
+        android:contentDescription="TODO" />
+
+    <ImageView
+        android:id="@+id/imagePapera"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="532dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/papera"
+        android:contentDescription="TODO" />
+
+    <ImageView
+        android:id="@+id/imagePlastiko_botila"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="388dp"
+        android:rotation="105"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/plastiko_botila"
+        android:contentDescription="TODO" />
+
+    <ImageView
+        android:id="@+id/imagePlatanoa"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="404dp"
+        android:rotation="125"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/platanoa"
+        android:contentDescription="TODO" />
+
+    <ImageView
+        android:id="@+id/imageSagarra"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="252dp"
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.733"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/sagarra" />
+
+    <ImageView
+        android:id="@+id/Arrautzak"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="532dp"
+        android:rotation="98"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/arrautza_kaxa"
+        android:contentDescription="TODO" />
+
+    <Button
+        android:id="@+id/btnGarbi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/garbitu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Jarraitu"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
