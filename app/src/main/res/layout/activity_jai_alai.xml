@@ -12,7 +12,6 @@
         android:layout_height="424dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="180dp"
-        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/jai_alai" />
