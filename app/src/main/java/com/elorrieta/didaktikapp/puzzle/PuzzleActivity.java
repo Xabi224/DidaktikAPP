@@ -2,6 +2,7 @@ package com.elorrieta.didaktikapp.puzzle;
 
 import static java.lang.Math.abs;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -36,6 +37,7 @@ import java.util.Random;
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PiezaPuzzle> pieces;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -291,12 +293,10 @@ public class PuzzleActivity extends AppCompatActivity {
         if (isGameOver()) {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.kirby);
             mediaPlayer.start();
-            String passStatus;
-            passStatus = "Puzzlea";
             new AlertDialog.Builder(this)
-                    .setTitle(passStatus)
-                    .setMessage("Zorionak, jokoa amaitu duzu!")
-                    .setPositiveButton("Jarraitu",(dialogInterface, i) -> endPuzzle() )
+                    .setTitle(R.string.puzzlea)
+                    .setMessage(R.string.zorionak_jokoa_amaitu)
+                    .setPositiveButton(R.string.jarraitu,(dialogInterface, i) -> endPuzzle() )
                     .setCancelable(false)
                     .show();
 

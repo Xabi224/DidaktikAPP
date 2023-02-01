@@ -1,18 +1,20 @@
 package com.elorrieta.didaktikapp.lotu;
 
+import com.elorrieta.didaktikapp.R;
+
 public class ZuhaitzagalderaDatuak {
 
-    public static String question[] ={
-            "Zein da Gernikako arbola?",
+    public static int[] question ={
+            R.string.galdera_zuhautza,
 
     };
 
-    public static String choices[][] = {
-            {"Pinua","Artea","Haritza","Ginkoa"},
+    public static int[][] choices = {
+            {R.string.pinua,R.string.artea,R.string.haritza, R.string.ginkoa},
     };
 
-    public static String correctAnswers[] = {
-            "Haritza"
+    public static int[] correctAnswers = {
+            R.string.haritza,
 
     };
 

@@ -5,21 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.CursorWindow;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -91,7 +89,7 @@ public class AbestiakMain extends AppCompatActivity {
                 }
             }
 
-            int fillSpacesAtEnd = countCharsAtEnd(line, '_');
+            int fillSpacesAtEnd = countCharsAtEnd(line);
             // rellenamos los espacios al final
             for (int i = 0; i < fillSpacesAtEnd; i++) {
                 editText = chainEditText(editText);
@@ -103,10 +101,10 @@ public class AbestiakMain extends AppCompatActivity {
         return views;
     }
 
-    private int countCharsAtEnd(String line, char c) {
+    private int countCharsAtEnd(String line) {
         int count = 0;
         for (int i = line.length() - 1; i >= 0; i--) {
-            if (line.charAt(i) == c) {
+            if (line.charAt(i) == '_') {
                 count++;
             } else {
                 break;
@@ -170,34 +168,37 @@ public class AbestiakMain extends AppCompatActivity {
             params.gravity = Gravity.CENTER;
             layout.setLayoutParams(params);
 
-            Button button1 = new Button(this);
+            ImageButton button1 = new ImageButton(this);
             layout.addView(button1);
-            Button button2 = new Button(this);
+            ImageButton button2 = new ImageButton(this);
             layout.addView(button2);
             alert.setView(layout);
             // Hay que abrir el dialogo antes de establecer los metodos de los botones para que luego puedan cerrarlo
             AlertDialog dialog = alert.show();
 
-            button1.setText("Gatibu");
+            button1.setImageResource(R.drawable.gatibu);
+            button1.setScaleType(ImageView.ScaleType.FIT_XY);
+            button1.setAdjustViewBounds(true);
             button1.setOnClickListener(view -> alertButtonFunction(button1, "Gatibu", dialog));
 
-            button2.setText("Ken zazpi");
+            button2.setImageResource(R.drawable.ken_zazpi);
+            button2.setScaleType(ImageView.ScaleType.FIT_XY);
+            button2.setAdjustViewBounds(true);
             button2.setOnClickListener(view -> alertButtonFunction(button2, "Ken Zazpi", dialog));
         }
     }
 
-    private void alertButtonFunction(Button button, String band, AlertDialog dialog) {
+    private void alertButtonFunction(ImageButton button, String band, AlertDialog dialog) {
         if (song.band.equals(band)) {
-            button.setBackgroundColor(Color.GREEN);
             new AlertDialog.Builder(AbestiakMain.this)
-                    .setMessage("Asmatu duzu! Orain abesti osoa entzun dezakezu")
-                    .setPositiveButton("Jarraitu", (dialogInterface, i) -> dialogInterface.dismiss())
+                    .setMessage(R.string.abestia_asmatu)
+                    .setPositiveButton(R.string.jarraitu, (dialogInterface, i) -> dialogInterface.dismiss())
                     .setCancelable(false)
                     .show();
             dialog.dismiss();
             int lastSong = AppDatabase.getDatabase(getApplicationContext()).songDao().lastSong();
             if (song.idSong < lastSong) {
-                binding.btnCheck.setText("Hurrengo abestia");
+                binding.btnCheck.setText(R.string.hurrengo_abestia);
                 binding.btnCheck.setOnClickListener(view -> nextSong());
             } else {
                 binding.btnCheck.setText(R.string.mapara_bueltatu);
@@ -209,23 +210,23 @@ public class AbestiakMain extends AppCompatActivity {
     }
 
     private String viewsToString(LinkedList<LinearLayout> views) {
-        String lyrics = "";
+        StringBuilder lyrics = new StringBuilder();
 
         for (int line = 0; line < views.size(); line++) {
             LinearLayout view = views.get(line);
 
             for (int column = 0; column < view.getChildCount(); column++) {
                 if (view.getChildAt(column) instanceof EditText) {
-                    lyrics += ((EditText) view.getChildAt(column)).getText().toString();
+                    lyrics.append(((EditText) view.getChildAt(column)).getText().toString());
                 } else {
-                    lyrics += ((TextView) view.getChildAt(column)).getText().toString();
+                    lyrics.append(((TextView) view.getChildAt(column)).getText().toString());
                 }
             }
             if (line < views.size() - 1) {
-                lyrics += "\r\n";
+                lyrics.append("\r\n");
             }
         }
-        return lyrics;
+        return lyrics.toString();
     }
 
     private void nextSong() {

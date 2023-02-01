@@ -13,15 +13,69 @@
     <string name="button2">Button</string>
     <string name="button3">Button</string>
     <string name="button4">Button</string>
-    <string name="todo">TODO</string>
 
     <!-- Zuhaitzak -->
     <string name="artea">Artea</string>
     <string name="pinua">Pinua</string>
     <string name="ginkoa">Ginkoa</string>
     <string name="haritza">Haritza</string>
+    <string name="galdera_zuhautza">Zein da Gernikako arbola?</string>
+
+    <!-- Mapa -->
+    <string name="modu_librea">Modu librea</string>
+    <string name="sartu_pasahitza">Sartu pasahitza modu librea aktibatzeko</string>
+    <string name="pasahitza_ez_zuzena">Pasahitza ez da zuzena</string>
+
+    <!-- Galdetegia -->
+    <string name="galdera1">Nork margotu zuen “El Guernica” koadroa?</string>
+    <string name="galdera2">Zer ikusi daiteke koadroan?</string>
+    <string name="galdera3">Noiz geratatu zen gertakari hori??</string>
+    <string name="galdera4">Zein kolore ditu koadroak??</string>
+    <string name="aukera1a">Velazquez</string>
+    <string name="aukera1b">Quevedo</string>
+    <string name="aukera1c">Picasso</string>
+    <string name="aukera2a">Bonbardaketa</string>
+    <string name="aukera2b">Eskola egun bat</string>
+    <string name="aukera2c">Kontzertua</string>
+    <string name="aukera3a">2010. urtean</string>
+    <string name="aukera3b">1815. urtean</string>
+    <string name="aukera3c">1937. urtean</string>
+    <string name="aukera4a">Zuria eta berdea</string>
+    <string name="aukera4b">Zuria eta beltza</string>
+    <string name="aukera4c">Beltza eta laranja</string>
+    <string name="erantzuna1">Picasso</string>
+    <string name="erantzuna2">Bonbardaketa</string>
+    <string name="erantzuna3">1937. urtean</string>
+    <string name="erantzuna4">Zuria eta beltza</string>
+
+    <!-- Puzzlea -->
+    <string name="galdera_kopurua">Galdera kopurua: %1$d</string>
+    <string name="puzzlea_egin">Puzzlea egin!!</string>
+    <string name="zure_piezak">Zure piezak 4/4 dira</string>
+    <string name="puzzlea">Puzzlea</string>
+
+    <!-- Abestiak -->
+    <string name="hurrengo_abestia">Hurrengo abestia</string>
+    <string name="abestia_asmatu">Asmatu duzu! Orain abesti osoa entzun dezakezu</string>
+
+    <!-- Erregistroa -->
+    <string name="dena_ezabatu">Dena ezabatu</string>
+    <string name="erregistroa_ezabatu">Erregistroa ezabatu nahi duzu?</string>
+    <string name="erregistro_guztiak_ezabatu">Erregistro guztiak ezabatu nahi dituzu?</string>
+
+
     <string name="egiaztatu">Egiaztatu</string>
     <string name="mapara_bueltatu">Mapara bueltatu</string>
-    <string name="dena_ezabatu">Dena ezabatu</string>
+    <string name="jarraitu">Jarraitu</string>
+    <string name="asmatu_duzu">Asmatu duzu!</string>
+    <string name="saiatu_berriro">Saiatu berriro</string>
+    <string name="zorionak">Zorionak!</string>
+    <string name="konfigurazioa_onartu">Konfigurazioa onartu behar da</string>
+    <string name="baieztatu">Baieztatu</string>
+    <string name="ezeztatu">Ezeztatu</string>
+    <string name="zorionak_jokoa_amaitu">Zorionak, jokoa amaitu duzu!</string>
+    <string name="bai">Bai</string>
+    <string name="ez">Ez</string>
+
 
 </resources>

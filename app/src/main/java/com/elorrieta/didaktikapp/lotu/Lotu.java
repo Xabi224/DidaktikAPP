@@ -1,5 +1,6 @@
 package com.elorrieta.didaktikapp.lotu;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,9 +14,9 @@ import com.elorrieta.didaktikapp.R;
 
 public class Lotu extends AppCompatActivity implements View.OnTouchListener {
     Button haritzaB, pinuaB, arteaB, ginkoaB, aukera1, aukera2, aukera3, aukera4;
-    boolean a, b, c, d = false;
     int count = 0;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class Lotu extends AppCompatActivity implements View.OnTouchListener {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
@@ -51,7 +53,7 @@ public class Lotu extends AppCompatActivity implements View.OnTouchListener {
         if (pinuaB.isPressed() && aukera1.isPressed()) {
             desactivarBoton(pinuaB);
             desactivarBoton(aukera1);
-            aukera1.setText("Pinua");
+            aukera1.setText(getApplicationContext().getText(R.string.pinua));
 
             count++;
 
@@ -59,17 +61,17 @@ public class Lotu extends AppCompatActivity implements View.OnTouchListener {
         } else if (arteaB.isPressed() && aukera2.isPressed()) {
             desactivarBoton(arteaB);
             desactivarBoton(aukera2);
-            aukera2.setText("Artea");
+            aukera2.setText(getApplicationContext().getText(R.string.artea));
             count++;
 
         } else if (ginkoaB.isPressed() && aukera3.isPressed()) {
             desactivarBoton(aukera3);
             desactivarBoton(ginkoaB);
-            aukera3.setText("Ginkoa");
+            aukera3.setText(getApplicationContext().getText(R.string.ginkoa));
             count++;
 
         } else if (haritzaB.isPressed() && aukera4.isPressed()) {
-            aukera4.setText("Haritza");
+            aukera4.setText(getApplicationContext().getText(R.string.haritza));
             desactivarBoton(haritzaB);
             desactivarBoton(aukera4);
             count++;

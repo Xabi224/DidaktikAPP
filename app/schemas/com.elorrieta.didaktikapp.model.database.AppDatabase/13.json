@@ -1,0 +1,191 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 13,
+    "identityHash": "c85f880d22dae06fb2a9e42795f3a080",
+    "entities": [
+      {
+        "tableName": "PlaceOfInterest",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idPoI` INTEGER NOT NULL, `name` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, PRIMARY KEY(`idPoI`))",
+        "fields": [
+          {
+            "fieldPath": "idPoI",
+            "columnName": "idPoI",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idPoI"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Game",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idGame` INTEGER NOT NULL, `idPoI` INTEGER NOT NULL, `description` TEXT, `audio` BLOB, `descriptionExtra` TEXT, `audioExtra` BLOB, `gameClass` TEXT, PRIMARY KEY(`idGame`))",
+        "fields": [
+          {
+            "fieldPath": "idGame",
+            "columnName": "idGame",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idPoI",
+            "columnName": "idPoI",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "audio",
+            "columnName": "audio",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "descriptionExtra",
+            "columnName": "descriptionExtra",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "audioExtra",
+            "columnName": "audioExtra",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "gameClass",
+            "columnName": "gameClass",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idGame"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Song",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idSong` INTEGER NOT NULL, `lyrics` TEXT, `fillLyrics` TEXT, `shortAudio` BLOB, `longAudio` BLOB, `band` TEXT, PRIMARY KEY(`idSong`))",
+        "fields": [
+          {
+            "fieldPath": "idSong",
+            "columnName": "idSong",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lyrics",
+            "columnName": "lyrics",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fillLyrics",
+            "columnName": "fillLyrics",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "shortAudio",
+            "columnName": "shortAudio",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "longAudio",
+            "columnName": "longAudio",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "band",
+            "columnName": "band",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idSong"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "GameRecord",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` INTEGER NOT NULL, `idGame` INTEGER NOT NULL, `completions` INTEGER NOT NULL, PRIMARY KEY(`date`, `idGame`))",
+        "fields": [
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idGame",
+            "columnName": "idGame",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "completions",
+            "columnName": "completions",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "date",
+            "idGame"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c85f880d22dae06fb2a9e42795f3a080')"
+    ]
+  }
+}

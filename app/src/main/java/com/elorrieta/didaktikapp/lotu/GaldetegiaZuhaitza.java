@@ -62,7 +62,7 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
 
         Button clickedButton = (Button) view;
 
-        if(clickedButton.getId()==R.id.ans_A && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][0].equals(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex])){
+        if(clickedButton.getId()==R.id.ans_A && getApplicationContext().getText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][0]).equals(getApplicationContext().getText(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex]))){
 
                 selectedAnswer = clickedButton.getText().toString();
                 clickedButton.setBackgroundColor(Color.GREEN);
@@ -76,7 +76,7 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
                         .show();
 
             }
-       else if (clickedButton.getId()==R.id.ans_B && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][1].equals(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex])){
+       else if (clickedButton.getId()==R.id.ans_B && getApplicationContext().getText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][1]).equals(getApplicationContext().getText(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex]))){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -90,7 +90,7 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
                     .show();
 
         }
-       else if(clickedButton.getId()==R.id.ans_C && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][2].equals(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex])){
+       else if(clickedButton.getId()==R.id.ans_C && getApplicationContext().getText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][2]).equals(getApplicationContext().getText(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex]))){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -104,7 +104,7 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
                     .show();
 
         }
-        else if(clickedButton.getId()==R.id.ans_D && ZuhaitzagalderaDatuak.choices[currentQuestionIndex][3].equals(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex])){
+        else if(clickedButton.getId()==R.id.ans_D && getApplicationContext().getText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][3]).equals(getApplicationContext().getText(ZuhaitzagalderaDatuak.correctAnswers[currentQuestionIndex]))){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -142,11 +142,11 @@ public class GaldetegiaZuhaitza extends AppCompatActivity implements View.OnClic
         ansA.setBackgroundColor(Color.WHITE);
         ansB.setBackgroundColor(Color.WHITE);
         ansC.setBackgroundColor(Color.WHITE);
-        questionTextView.setText(ZuhaitzagalderaDatuak.question[currentQuestionIndex]);
-        ansA.setText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][0]);
-        ansB.setText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][1]);
-        ansC.setText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][2]);
-        ansD.setText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][3]);
+        questionTextView.setText(getApplicationContext().getText(ZuhaitzagalderaDatuak.question[currentQuestionIndex]));
+        ansA.setText(getApplicationContext().getText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][0]));
+        ansB.setText(getApplicationContext().getText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][1]));
+        ansC.setText(getApplicationContext().getText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][2]));
+        ansD.setText(getApplicationContext().getText(ZuhaitzagalderaDatuak.choices[currentQuestionIndex][3]));
 
 
     }

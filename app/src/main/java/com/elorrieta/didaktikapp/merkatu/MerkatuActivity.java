@@ -1,7 +1,6 @@
 package com.elorrieta.didaktikapp.merkatu;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.elorrieta.didaktikapp.R;
-
-import com.elorrieta.didaktikapp.map.MapsActivity;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
 
 public class MerkatuActivity extends AppCompatActivity implements View.OnClickListener {
@@ -91,7 +88,7 @@ public class MerkatuActivity extends AppCompatActivity implements View.OnClickLi
         }
         if (count == 7) {
             new AlertDialog.Builder(this)
-                    .setMessage("Zorionak, jokoa amaitu duzu!")
+                    .setMessage(R.string.zorionak_jokoa_amaitu)
                     .setCancelable(false)
                     .setPositiveButton(R.string.mapara_bueltatu, (dialog, which) -> endActivity())
                     .show();

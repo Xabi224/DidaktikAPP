@@ -190,7 +190,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 createLocationRequest();
             } else {
                 // El usuario ha rechazado la configuracion de localizacion
-                Toast.makeText(this, "Konfigurazioa onartu behar da", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.konfigurazioa_onartu, Toast.LENGTH_SHORT).show();
                 createLocationRequest();
             }
         }
@@ -222,27 +222,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void promptFreeMode() {
         // Abrimos un prompt para preguntar la contraseña del modo sin GPS
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Modu librea");
-        alert.setMessage("Sartu pasahitza modu librea aktibatzeko");
+        alert.setTitle(R.string.modu_librea);
+        alert.setMessage(R.string.sartu_pasahitza);
 
         // Input para la contraseña
         final EditText input = new EditText(this);
         alert.setView(input);
 
         // Funcion del boton OK
-        alert.setPositiveButton("Baieztatu", (dialog, whichButton) -> {
+        alert.setPositiveButton(R.string.baieztatu, (dialog, whichButton) -> {
             String value = input.getText().toString();
-            if (value.equals("1234")) {
+            String pass = preferences.getString("freeModePass", "1234");
+            if (value.equals(pass)) {
                 // Si la contraseña es correcta, se activa el modo libre
                 startFreeMode();
             } else {
                 // Si la contraseña es incorrecta, se muestra un mensaje de error
-                Toast.makeText(getApplicationContext(), "Pasahitza ez da zuzena", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.pasahitza_ez_zuzena, Toast.LENGTH_SHORT).show();
             }
         });
 
         // Funcion del boton de cancelar
-        alert.setNegativeButton("Ezeztatu", (dialog, whichButton) -> {
+        alert.setNegativeButton(R.string.ezeztatu, (dialog, whichButton) -> {
             // No hacemos nada
             dialog.dismiss();
         });

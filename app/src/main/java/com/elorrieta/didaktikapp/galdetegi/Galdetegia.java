@@ -27,7 +27,6 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
     int currentQuestionIndex = 0;
     String selectedAnswer = "";
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +42,7 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
         ansB.setOnClickListener(this);
         ansC.setOnClickListener(this);
 
-        totalQuestionsTextView.setText("Total questions : "+totalQuestion);
+        totalQuestionsTextView.setText(getString(R.string.galdera_kopurua, totalQuestion));
         loadNewQuestion();
     }
 
@@ -57,7 +56,7 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
 
         Button clickedButton = (Button) view;
 
-        if(clickedButton.getId()==R.id.ans_A && QuestionAnswer.choices[currentQuestionIndex][0].equals(QuestionAnswer.correctAnswers[currentQuestionIndex])){
+        if(clickedButton.getId()==R.id.ans_A && getApplicationContext().getText(QuestionAnswer.choices[currentQuestionIndex][0]).equals(getApplicationContext().getText(QuestionAnswer.correctAnswers[currentQuestionIndex]))){
 
                 selectedAnswer = clickedButton.getText().toString();
                 clickedButton.setBackgroundColor(Color.GREEN);
@@ -65,13 +64,13 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
                 clickedButton.setBackgroundColor(Color.GREEN);
                 new AlertDialog.Builder(this)
 
-                        .setMessage("Asmatu duzu!")
-                        .setPositiveButton("Jarraitu", (dialogInterface, i) -> loadNewQuestion())
+                        .setMessage(R.string.asmatu_duzu)
+                        .setPositiveButton(R.string.jarraitu, (dialogInterface, i) -> loadNewQuestion())
                         .setCancelable(false)
                         .show();
 
             }
-       else if (clickedButton.getId()==R.id.ans_B && QuestionAnswer.choices[currentQuestionIndex][1].equals(QuestionAnswer.correctAnswers[currentQuestionIndex])){
+       else if (clickedButton.getId()==R.id.ans_B && getApplicationContext().getText(QuestionAnswer.choices[currentQuestionIndex][1]).equals(getApplicationContext().getText(QuestionAnswer.correctAnswers[currentQuestionIndex]))){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -79,13 +78,13 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
 
             new AlertDialog.Builder(this)
 
-                    .setMessage("Asmatu duzu!")
-                    .setPositiveButton("Jarraitu", (dialogInterface, i) -> loadNewQuestion())
+                    .setMessage(R.string.asmatu_duzu)
+                    .setPositiveButton(R.string.jarraitu, (dialogInterface, i) -> loadNewQuestion())
                     .setCancelable(false)
                     .show();
 
         }
-       else if(clickedButton.getId()==R.id.ans_C && QuestionAnswer.choices[currentQuestionIndex][2].equals(QuestionAnswer.correctAnswers[currentQuestionIndex])){
+       else if(clickedButton.getId()==R.id.ans_C && getApplicationContext().getText(QuestionAnswer.choices[currentQuestionIndex][2]).equals(getApplicationContext().getText(QuestionAnswer.correctAnswers[currentQuestionIndex]))){
 
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.GREEN);
@@ -93,8 +92,8 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
 
             new AlertDialog.Builder(this)
 
-                    .setMessage("Asmatu duzu!")
-                    .setPositiveButton("Jarraitu", (dialogInterface, i) -> loadNewQuestion())
+                    .setMessage(R.string.asmatu_duzu)
+                    .setPositiveButton(R.string.jarraitu, (dialogInterface, i) -> loadNewQuestion())
                     .setCancelable(false)
                     .show();
 
@@ -104,8 +103,8 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
                 clickedButton.setBackgroundColor(Color.RED);
                     new AlertDialog.Builder(this)
 
-                            .setMessage("Ez duzu asmatu duzu!")
-                            .setPositiveButton("Saiatu berriro", (dialogInterface, i) -> loadNewQuestion())
+                            .setMessage(R.string.saiatu_berriro)
+                            .setPositiveButton(R.string.saiatu_berriro, (dialogInterface, i) -> loadNewQuestion())
                             .setCancelable(false)
                             .show();
                 }
@@ -122,22 +121,22 @@ public class Galdetegia extends AppCompatActivity implements View.OnClickListene
         ansA.setBackgroundColor(Color.WHITE);
         ansB.setBackgroundColor(Color.WHITE);
         ansC.setBackgroundColor(Color.WHITE);
-        questionTextView.setText(QuestionAnswer.question[currentQuestionIndex]);
-        ansA.setText(QuestionAnswer.choices[currentQuestionIndex][0]);
-        ansB.setText(QuestionAnswer.choices[currentQuestionIndex][1]);
-        ansC.setText(QuestionAnswer.choices[currentQuestionIndex][2]);
+        questionTextView.setText(getApplicationContext().getText(QuestionAnswer.question[currentQuestionIndex]));
+        ansA.setText(getApplicationContext().getText(QuestionAnswer.choices[currentQuestionIndex][0]));
+        ansB.setText(getApplicationContext().getText(QuestionAnswer.choices[currentQuestionIndex][1]));
+        ansC.setText(getApplicationContext().getText(QuestionAnswer.choices[currentQuestionIndex][2]));
 
 
     }
 
     void finishQuiz(){
         String passStatus;
-        passStatus = "Zorionak";
+        passStatus = getString(R.string.zorionak);
 
         new AlertDialog.Builder(this)
                 .setTitle(passStatus)
-                .setMessage("Zure piezak 4/4 dira")
-                .setPositiveButton("Puzzlea egin!!",(dialogInterface, i) -> endQuiz() )
+                .setMessage(R.string.zure_piezak)
+                .setPositiveButton(R.string.puzzlea_egin,(dialogInterface, i) -> endQuiz() )
                 .setCancelable(false)
                 .show();
     }

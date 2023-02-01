@@ -1,26 +1,28 @@
 package com.elorrieta.didaktikapp.galdetegi;
 
+import com.elorrieta.didaktikapp.R;
+
 public class QuestionAnswer {
 
-    public static String question[] ={
-            "Nork margotu zuen “El Guernica” koadroa?",
-            "Zer ikusi daiteke koadroan?",
-            "Noiz geratatu zen gertakari hori??",
-            "Zein kolore ditu koadroak??"
+    public static int[] question ={
+            R.string.galdera1,
+            R.string.galdera2,
+            R.string.galdera3,
+            R.string.galdera4,
     };
 
-    public static String choices[][] = {
-            {"Velazquez","Quevedo","Picasso"},
-            {"Bonbardaketa","Eskola egun bat","Kontzertua"},
-            {"2010. urtean","1815. urtean","1937. urtean"},
-            {"Zuria eta berdea","Zuria eta beltza","Beltza eta laranja"}
+    public static int[][] choices = {
+            {R.string.aukera1a,R.string.aukera1b,R.string.aukera1c},
+            {R.string.aukera2a,R.string.aukera2b,R.string.aukera2c},
+            {R.string.aukera3a,R.string.aukera3b,R.string.aukera3c},
+            {R.string.aukera4a,R.string.aukera4b,R.string.aukera4c}
     };
 
-    public static String correctAnswers[] = {
-            "Picasso",
-            "Bonbardaketa",
-            "1937. urtean",
-            "Zuria eta beltza"
+    public static int[] correctAnswers = {
+            R.string.erantzuna1,
+            R.string.erantzuna2,
+            R.string.erantzuna3,
+            R.string.erantzuna4
     };
 
 }
