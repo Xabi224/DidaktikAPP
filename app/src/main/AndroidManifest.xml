@@ -16,6 +16,13 @@
         android:theme="@style/Theme.DidaktikAPP"
         tools:targetApi="31">
         <activity
+            android:name=".Garbitu"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".records.RecordActivity"
             android:exported="false" />
         <activity
@@ -27,6 +34,13 @@
         </activity>
         <activity
             android:name=".merkatu.MerkatuActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Urdaibai"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

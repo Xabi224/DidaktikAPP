@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".urdaibai.Garbitu">
+
+    <ImageView
+        android:id="@+id/beira"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="541dp"
+        android:layout_marginEnd="255dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/beira" />
+
+    <ImageView
+        android:id="@+id/organikoa"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="255dp"
+        android:layout_marginTop="541dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/organikoa" />
+
+    <ImageView
+        android:id="@+id/papela"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="367dp"
+        android:layout_marginEnd="255dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/beira"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/papela" />
+
+    <ImageView
+        android:id="@+id/plastikoa"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="255dp"
+        android:layout_marginTop="367dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/organikoa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/plastikoa" />
+
+    <TextView
+        android:id="@+id/tvPapela"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="348dp"
+        android:layout_marginEnd="255dp"
+        android:text="Papela"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/papela"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPlastikoa"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="255dp"
+        android:layout_marginTop="348dp"
+        android:layout_marginEnd="56dp"
+        android:text="Plastikoa"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/plastikoa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvBeira"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="255dp"
+        android:text="Beira"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/beira"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/papela" />
+
+    <TextView
+        android:id="@+id/tvOrganikoa"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="255dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="56dp"
+        android:text="Organikoa"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/organikoa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plastikoa"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zaborra dagokion ontzian sartu."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgArrautzak"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="590dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgCafe"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/arrautza_kaxa" />
+
+    <ImageView
+        android:id="@+id/imgCafe"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginBottom="590dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPlastiko2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/cafe" />
+
+    <ImageView
+        android:id="@+id/imgBeira"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginBottom="408dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPlatano"
+        app:layout_constraintTop_toBottomOf="@+id/imgPapera"
+        app:srcCompat="@drawable/kristal_botilak" />
+
+    <ImageView
+        android:id="@+id/imgLata"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="280dp"
+        android:layout_marginBottom="499dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPlastiko2"
+        app:srcCompat="@drawable/lata" />
+
+    <ImageView
+        android:id="@+id/imgPapera"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginBottom="499dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imgLata"
+        app:layout_constraintTop_toBottomOf="@+id/imgCafe"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/papera" />
+
+    <ImageView
+        android:id="@+id/imgPlastiko1"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="499dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPapera"
+        app:layout_constraintTop_toBottomOf="@+id/imgArrautzak"
+        app:srcCompat="@drawable/plastiko_botila" />
+
+    <ImageView
+        android:id="@+id/imgPlatano"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="280dp"
+        android:layout_marginBottom="408dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLata"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/platanoa" />
+
+    <ImageView
+        android:id="@+id/imgPlastiko2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="282dp"
+        android:layout_marginBottom="590dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/plastiko_botilak" />
+
+    <ImageView
+        android:id="@+id/imgSagarra"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="408dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgBeira"
+        app:layout_constraintTop_toBottomOf="@+id/imgPlastiko1"
+        app:srcCompat="@drawable/sagarra" />
+</androidx.constraintlayout.widget.ConstraintLayout>

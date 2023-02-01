@@ -13,6 +13,7 @@
     <string name="button2">Button</string>
     <string name="button3">Button</string>
     <string name="button4">Button</string>
+    <string name="todo">TODO</string>
 
     <!-- Zuhaitzak -->
     <string name="artea">Artea</string>
@@ -76,6 +77,6 @@
     <string name="zorionak_jokoa_amaitu">Zorionak, jokoa amaitu duzu!</string>
     <string name="bai">Bai</string>
     <string name="ez">Ez</string>
-
+    <string name="garbitu">Garbitu</string>
 
 </resources>
