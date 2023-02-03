@@ -30,8 +30,7 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //TODO: cambiar a false cuando se termine
-        preferences.edit().putBoolean("freeMode", true).apply();
+        preferences.edit().putBoolean("freeMode", false).apply();
 
         setContentView(R.layout.activity_splash_screen);
 
