@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 13,
-    "identityHash": "c85f880d22dae06fb2a9e42795f3a080",
+    "identityHash": "f192d76e9779d0074534087fa2347b49",
     "entities": [
       {
         "tableName": "PlaceOfInterest",
@@ -182,10 +182,15 @@
         "foreignKeys": []
       }
     ],
-    "views": [],
+    "views": [
+      {
+        "viewName": "GameRecordView",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT IdGame, Date, Name, Completions FROM GameRecord NATURAL JOIN Game NATURAL JOIN PlaceOfInterest"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c85f880d22dae06fb2a9e42795f3a080')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f192d76e9779d0074534087fa2347b49')"
     ]
   }
 }

@@ -6,9 +6,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.elorrieta.didaktikapp.model.entities.GameAndRecord;
 import com.elorrieta.didaktikapp.model.entities.GameRecord;
-import com.elorrieta.didaktikapp.model.pojo.GameRecordPOJO;
+import com.elorrieta.didaktikapp.model.views.GameRecordView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,8 +27,8 @@ public abstract class GameRecordDAO {
     @Query("SELECT * FROM GameRecord")
     public abstract List<GameRecord> getAll();
 
-    @Query("SELECT IdGame, Date, Name, Completions FROM GameRecord NATURAL JOIN Game NATURAL JOIN PlaceOfInterest")
-    public abstract List<GameRecordPOJO> getAllGamesAndRecords();
+    @Query("SELECT * FROM GameRecordView")
+    public abstract List<GameRecordView> getAllGamesAndRecords();
 
     @Insert
     public abstract void insertAll(GameRecord... gameRecords);

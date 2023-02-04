@@ -17,8 +17,10 @@ import com.elorrieta.didaktikapp.model.entities.Game;
 import com.elorrieta.didaktikapp.model.entities.GameRecord;
 import com.elorrieta.didaktikapp.model.entities.PlaceOfInterest;
 import com.elorrieta.didaktikapp.model.entities.Song;
+import com.elorrieta.didaktikapp.model.views.GameRecordView;
 
 @Database(entities = {PlaceOfInterest.class, Game.class, Song.class, GameRecord.class},
+        views = {GameRecordView.class},
         version = 13,
         autoMigrations = {
                 @AutoMigration(from = 11, to = 12),

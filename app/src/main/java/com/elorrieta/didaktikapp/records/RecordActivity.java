@@ -10,7 +10,7 @@ import com.elorrieta.didaktikapp.R;
 import com.elorrieta.didaktikapp.databinding.ActivityRecordBinding;
 import com.elorrieta.didaktikapp.model.database.AppDatabase;
 import com.elorrieta.didaktikapp.model.entities.GameRecord;
-import com.elorrieta.didaktikapp.model.pojo.GameRecordPOJO;
+import com.elorrieta.didaktikapp.model.views.GameRecordView;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class RecordActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         ListView list = binding.listView;
-        List<GameRecordPOJO> records = AppDatabase.getDatabase(this).gameRecordDao().getAllGamesAndRecords();
+        List<GameRecordView> records = AppDatabase.getDatabase(this).gameRecordDao().getAllGamesAndRecords();
         GameRecordAdapter adapter = new GameRecordAdapter(this, records);
         list.setAdapter(adapter);
 
@@ -31,10 +31,10 @@ public class RecordActivity extends AppCompatActivity {
         list.setOnItemClickListener((parent, view, position, id) -> new AlertDialog.Builder(this)
                 .setMessage(R.string.erregistroa_ezabatu)
                 .setPositiveButton(R.string.bai, (dialog, which) -> {
-                    GameRecordPOJO recordPOJO = (GameRecordPOJO) parent.getItemAtPosition(position);
-                    GameRecord gameRecord = new GameRecord(recordPOJO.getDate(), recordPOJO.getIdGame(), recordPOJO.getCompletions());
+                    GameRecordView recordView = (GameRecordView) parent.getItemAtPosition(position);
+                    GameRecord gameRecord = new GameRecord(recordView.date, recordView.idGame, recordView.completions);
                     AppDatabase.getDatabase(this).gameRecordDao().delete(gameRecord);
-                    adapter.remove(recordPOJO);
+                    adapter.remove(recordView);
                 })
                 .setNegativeButton(R.string.ez, null)
                 .show());

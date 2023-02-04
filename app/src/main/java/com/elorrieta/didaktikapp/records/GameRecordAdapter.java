@@ -12,11 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.elorrieta.didaktikapp.R;
-import com.elorrieta.didaktikapp.model.pojo.GameRecordPOJO;
+import com.elorrieta.didaktikapp.model.views.GameRecordView;
 
 import java.util.List;
 
-public class GameRecordAdapter extends ArrayAdapter<GameRecordPOJO> {
+public class GameRecordAdapter extends ArrayAdapter<GameRecordView> {
 
     private final Context context;
 
@@ -27,7 +27,7 @@ public class GameRecordAdapter extends ArrayAdapter<GameRecordPOJO> {
         TextView txtCompletions;
     }
 
-    public GameRecordAdapter(@NonNull Context context, @NonNull List<GameRecordPOJO> objects) {
+    public GameRecordAdapter(@NonNull Context context, @NonNull List<GameRecordView> objects) {
         super(context, R.layout.record_row, objects);
         this.context = context;
     }
@@ -36,7 +36,7 @@ public class GameRecordAdapter extends ArrayAdapter<GameRecordPOJO> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        GameRecordPOJO dataModel = getItem(position);
+        GameRecordView dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
@@ -47,9 +47,9 @@ public class GameRecordAdapter extends ArrayAdapter<GameRecordPOJO> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.record_row, parent, false);
-            viewHolder.txtDate = (TextView) convertView.findViewById(R.id.record_date);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.record_name);
-            viewHolder.txtCompletions = (TextView) convertView.findViewById(R.id.record_completions);
+            viewHolder.txtDate = convertView.findViewById(R.id.record_date);
+            viewHolder.txtName = convertView.findViewById(R.id.record_name);
+            viewHolder.txtCompletions = convertView.findViewById(R.id.record_completions);
 
             result = convertView;
 
@@ -64,9 +64,9 @@ public class GameRecordAdapter extends ArrayAdapter<GameRecordPOJO> {
         lastPosition = position;
 
         // Populate the data into the template view using the data object
-        viewHolder.txtDate.setText(dataModel.getDate().toString());
-        viewHolder.txtName.setText(dataModel.getName());
-        viewHolder.txtCompletions.setText(String.valueOf(dataModel.getCompletions()));
+        viewHolder.txtDate.setText(dataModel.date.toString());
+        viewHolder.txtName.setText(dataModel.name);
+        viewHolder.txtCompletions.setText(String.valueOf(dataModel.completions));
 
         // Return the completed view to render on screen
         return convertView;
