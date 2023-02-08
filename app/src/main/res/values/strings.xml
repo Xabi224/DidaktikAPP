@@ -64,6 +64,13 @@
     <string name="erregistroa_ezabatu">Erregistroa ezabatu nahi duzu?</string>
     <string name="erregistro_guztiak_ezabatu">Erregistro guztiak ezabatu nahi dituzu?</string>
 
+    <!-- Garbitu -->
+    <string name="garbitu">Garbitu</string>
+    <string name="plastikoa">Plastikoa</string>
+    <string name="papela">Papela</string>
+    <string name="beira">Beira</string>
+    <string name="organikoa">Organikoa</string>
+    <string name="zaborra_dagokion_ontzian_sartu">Zaborra dagokion ontzian sartu.</string>
 
     <string name="egiaztatu">Egiaztatu</string>
     <string name="mapara_bueltatu">Mapara bueltatu</string>
@@ -77,6 +84,5 @@
     <string name="zorionak_jokoa_amaitu">Zorionak, jokoa amaitu duzu!</string>
     <string name="bai">Bai</string>
     <string name="ez">Ez</string>
-    <string name="garbitu">Garbitu</string>
 
 </resources>

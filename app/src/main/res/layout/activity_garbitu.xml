@@ -69,8 +69,8 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="348dp"
         android:layout_marginEnd="255dp"
-        android:text="Papela"
         android:gravity="center"
+        android:text="@string/papela"
         app:layout_constraintBottom_toTopOf="@+id/papela"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,8 +83,8 @@
         android:layout_marginStart="255dp"
         android:layout_marginTop="348dp"
         android:layout_marginEnd="56dp"
-        android:text="Plastikoa"
         android:gravity="center"
+        android:text="@string/plastikoa"
         app:layout_constraintBottom_toTopOf="@+id/plastikoa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -98,8 +98,8 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="255dp"
-        android:text="Beira"
         android:gravity="center"
+        android:text="@string/beira"
         app:layout_constraintBottom_toTopOf="@+id/beira"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,8 +112,8 @@
         android:layout_marginStart="255dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="56dp"
-        android:text="Organikoa"
         android:gravity="center"
+        android:text="@string/organikoa"
         app:layout_constraintBottom_toTopOf="@+id/organikoa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -125,7 +125,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zaborra dagokion ontzian sartu."
+        android:text="@string/zaborra_dagokion_ontzian_sartu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -262,6 +262,7 @@
         app:layout_constraintStart_toEndOf="@+id/imgBeira"
         app:layout_constraintTop_toBottomOf="@+id/imgPlastiko1"
         app:srcCompat="@drawable/sagarra" />
+
     <Button
         android:id="@+id/btnMapa"
         android:layout_width="wrap_content"
@@ -269,9 +270,9 @@
         android:layout_marginStart="3dp"
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="16dp"
-        android:text="Button"
+        android:text="@string/mapara_bueltatu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/organikoa"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/beira" />
 </androidx.constraintlayout.widget.ConstraintLayout>
