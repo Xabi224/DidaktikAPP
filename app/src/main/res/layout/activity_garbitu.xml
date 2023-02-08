@@ -262,4 +262,16 @@
         app:layout_constraintStart_toEndOf="@+id/imgBeira"
         app:layout_constraintTop_toBottomOf="@+id/imgPlastiko1"
         app:srcCompat="@drawable/sagarra" />
+    <Button
+        android:id="@+id/btnMapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="16dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/organikoa"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/beira" />
 </androidx.constraintlayout.widget.ConstraintLayout>
