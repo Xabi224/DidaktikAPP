@@ -126,5 +126,4 @@ public class Garbitu extends AppCompatActivity {
             AppDatabase.getDatabase(getApplicationContext()).gameRecordDao().addCompletion(gameId);
             finish();
         }
-    }
 }
